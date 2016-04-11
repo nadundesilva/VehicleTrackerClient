@@ -7,17 +7,17 @@ angular.module('app.routes', [])
   // Set up the various states which the app can be in.
   // Each state's controller can be found in controllers.js
   $stateProvider
-    
-  
 
-      .state('menu.home', {
-    url: '/home',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/home.html',
-        controller: 'homeCtrl'
-      }
-    }
+  .state('login', {
+    url: '/login',
+    templateUrl: 'templates/login.html',
+    controller: 'loginCtrl'
+  })
+
+  .state('signUp', {
+    url: '/sign-up',
+    templateUrl: 'templates/signUp.html',
+    controller: 'signUpCtrl'
   })
 
   .state('menu', {
@@ -26,22 +26,12 @@ angular.module('app.routes', [])
     abstract:true
   })
 
-  .state('menu.login', {
-    url: '/login',
+  .state('menu.home', {
+    url: '/home',
     views: {
       'side-menu21': {
-        templateUrl: 'templates/login.html',
-        controller: 'loginCtrl'
-      }
-    }
-  })
-
-  .state('menu.signUp', {
-    url: '/sign-up',
-    views: {
-      'side-menu21': {
-        templateUrl: 'templates/signUp.html',
-        controller: 'signUpCtrl'
+        templateUrl: 'templates/home.html',
+        controller: 'homeCtrl'
       }
     }
   })
@@ -163,7 +153,7 @@ angular.module('app.routes', [])
   })
 
   .state('menu.checkIn', {
-    url: '/page19',
+    url: '/check-in',
     views: {
       'side-menu21': {
         templateUrl: 'templates/checkIn.html',
@@ -192,8 +182,6 @@ angular.module('app.routes', [])
     }
   })
 
-$urlRouterProvider.otherwise('/nav-menu/login')
-
-  
+$urlRouterProvider.otherwise('/login')
 
 });
