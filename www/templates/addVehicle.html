@@ -1,0 +1,63 @@
+<ion-view title="Add Vehicle" id="page12" style="background-color:#DFE2E7;">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <div class="list card">
+            <div class="item item-body">
+                <form class="list">
+                    <label class="item item-input" name="name">
+                        <span class="input-label">Name</span>
+                        <input type="text" placeholder="Enter a name">
+                    </label>
+                    <label class="item item-input" name="license_plate">
+                        <span class="input-label">License Plate</span>
+                        <input type="text" placeholder="Enter license plate">
+                    </label>
+                    <label class="item item-input" name="description">
+                        <span class="input-label">Description</span><textarea placeholder="Enter a description"> </textarea>
+                    </label>
+                </form>
+            </div>
+        </div>
+        <div class="list card">
+            <div class="item item-divider">Fuel Details</div>
+            <div class="item item-body">
+                <form class="list">
+                    <ion-toggle toggle-class="toggle-positive" name="bi-fuel">Bi-fuel Vehicle</ion-toggle>
+                    <label class="item item-select" name="fuel-one-type">
+                        <span class="input-label">Fuel 01</span>
+                        <select>
+                            <option>N/A</option>
+                        </select>
+                    </label>
+                    <label class="item item-select" name="fuel-two-type">
+                        <span class="input-label">Fuel 02</span>
+                        <select>
+                            <option>N/A</option>
+                        </select>
+                    </label>
+                </form>
+            </div>
+        </div>
+        <form class="list">
+            <div class="list card">
+                <div class="item item-divider">Other</div>
+                <div class="item item-body">
+                    <form class="list">
+                        <label class="item item-input" name="make">
+                            <span class="input-label">Make</span>
+                            <input type="text" placeholder="Enter the make">
+                        </label>
+                        <label class="item item-input" name="model">
+                            <span class="input-label">Model</span>
+                            <input type="text" placeholder="Enter the model">
+                        </label>
+                        <label class="item item-input" name="year">
+                            <span class="input-label">Year</span>
+                            <input type="text" placeholder="Enter the year">
+                        </label>
+                    </form>
+                </div>
+            </div>
+            <button id="addVehicle-button12" class="button button-positive  button-block icon ion-android-add-circle">Add</button>
+        </form>
+    </ion-content>
+</ion-view>

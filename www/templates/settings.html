@@ -1,0 +1,50 @@
+<ion-view title="Settings" id="page13" style="background-color:#DFE2E7;">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <div class="list card">
+            <div class="item item-divider">Units</div>
+            <div class="item item-body">
+                <form class="list">
+                    <label class="item item-select" name="fuel-unit">
+                        <span class="input-label">Fuel</span>
+                        <select>
+                            <option>Litres</option>
+                            <option>Gallons</option>
+                        </select>
+                    </label>
+                    <label class="item item-select" name="distance-unit">
+                        <span class="input-label">Distance</span>
+                        <select>
+                            <option>kilometers</option>
+                            <option>miles</option>
+                        </select>
+                    </label>
+                    <label class="item item-select" name="settings-consumption-unit">
+                        <span class="input-label">Consumption</span>
+                        <select>
+                            <option>litres/kilometer</option>
+                            <option>gallons/mile</option>
+                        </select>
+                    </label>
+                </form>
+            </div>
+        </div>
+        <div class="list card">
+            <div class="item item-divider">Offline Mode</div>
+            <div class="item item-body">
+                <form class="list">
+                    <label class="item item-select" name="history-size">
+                        <span class="input-label">History Size</span>
+                        <select>
+                            <option>1 month</option>
+                            <option>5 months</option>
+                            <option>1 year</option>
+                            <option>2 years</option>
+                            <option>5 years</option>
+                        </select>
+                    </label>
+                </form>
+            </div>
+        </div>
+        <form class="list"></form>
+    </ion-content>
+</ion-view>

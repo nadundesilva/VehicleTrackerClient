@@ -1,0 +1,23 @@
+<ion-view title="Generate Report" id="page14" style="background-color:#DFE2E7;">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <form class="list">
+            <label class="item item-select" name="type">
+                <span class="input-label">Type</span>
+                <select>
+                    <option>Fuel Consumption</option>
+                    <option>Costs</option>
+                    <option>Fuel Price</option>
+                </select>
+            </label>
+        </form>
+        <form class="list">
+            <ion-checkbox name="fuel-fill-ups">Fuel fill ups</ion-checkbox>
+            <ion-checkbox name="service">Service</ion-checkbox>
+            <ion-checkbox name="maintenance">Maintenance</ion-checkbox>
+            <ion-checkbox name="parking">Parking</ion-checkbox>
+            <ion-checkbox name="insurance">Insurance</ion-checkbox>
+            <ion-checkbox name="other">Other</ion-checkbox>
+        </form>
+        <a ui-sref="report" id="generateReport-button14" class="button button-positive  button-block icon ion-compose">Generate</a>
+    </ion-content>
+</ion-view>

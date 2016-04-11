@@ -1,0 +1,33 @@
+<ion-view title="Fuel Fill-ups" id="page11" style="background-color:#DFE2E7;">
+    <ion-content overflow-scroll="true" padding="true" class="has-header">
+        <a ui-sref="menu.addFuelFillUp" id="fuelFillUps-button8" class="button button-calm  button-block icon ion-android-add-circle">Add Fill-up</a>
+        <form class="list">
+            <label class="item item-select" name="vehicle">
+                <span class="input-label">Vehicle</span>
+                <select>
+                    <option>N/A</option>
+                </select>
+            </label>
+        </form>
+        <div class="list card">
+            <div class="item item-divider">Map</div>
+            <div class="item item-body"></div>
+        </div>
+        <div class="list card">
+            <div class="item item-divider">Fill-ups List</div>
+            <div class="item item-body">
+                <ion-list>
+                    <label class="item item-input" name="search">
+                        <i class="icon ion-search placeholder-icon"></i>
+                        <input type="search" placeholder="Enter a date">
+                    </label>
+                    <ion-item class="item-thumbnail-left" ui-sref="menu.fuelFillUp">
+                        <img src="img/8nIxVKYzQIS8SJIUlzXN_Fuel.png">
+                        <h2>Time</h2>
+                        <p>Click to view on map</p>
+                    </ion-item>
+                </ion-list>
+            </div>
+        </div>
+    </ion-content>
+</ion-view>
