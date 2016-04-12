@@ -7,7 +7,7 @@
 // 'starter.controllers' is found in controllers.js
 angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives'])
 
-.run(function($ionicPlatform) {
+.run(function($ionicPlatform, $rootScope) {
   $ionicPlatform.ready(function() {
     // Hide the accessory bar by default (remove this to show the accessory bar above the keyboard
     // for form inputs)
@@ -20,4 +20,10 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
       StatusBar.styleDefault();
     }
   });
+
+  //Setting constants
+  $rootScope.USERNAME_KEY = 'username';
+  $rootScope.PASSWORD_KEY = 'password';
+
+  $rootScope.MAIN_SERVER_URL = 'http://192.168.1.3/symfony/vehicle_tracker/web';
 })

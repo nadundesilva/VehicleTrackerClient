@@ -1,13 +1,48 @@
-angular.module('app.controllers', [])
+angular.module('app.controllers', ['ngCordova'])
 
 .controller('homeCtrl', function($scope) {
 
 })
 
-.controller('loginCtrl', function($scope, $state) {
-    $scope.login = function() {
-        $state.go('menu.home');
+.controller('loginCtrl', function($scope, $rootScope, $http, $cordovaPreferences, $ionicPlatform, $cordovaToast, $ionicHistory, $state) {
+  $scope.credentials = {};
+  $scope.login = function() {
+    if ($scope.credentials.username.length <= 0 || $scope.credentials.password.length <= 0) {
+      $cordovaToast.showShortBottom('The username and the password is required');
+      return;
     }
+    var data = {
+      username: $scope.credentials.username,
+      password: $scope.credentials.password
+    };
+    $http.post($rootScope.MAIN_SERVER_URL + '/login', data)
+      .then(function(response) {
+        if (response.data.status == 'SUCCESS') {
+          $cordovaPreferences.store($rootScope.USERNAME_KEY, $scope.credentials.username);
+          $cordovaPreferences.store($rootScope.PASSWORD_KEY, $scope.credentials.password);
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+          $state.go('menu.home', {}, {location: "replace", reload: true});
+        } else if (response.data.status == 'NOT_REGISTERED') {
+          $cordovaToast.showShortBottom('Invalid username');
+        } else if (response.data.status == 'WRONG_PASSWORD') {
+          $cordovaToast.showShortBottom('Invalid password');
+        }
+      });
+  };
+
+  $ionicPlatform.ready(function() {
+    $cordovaPreferences.fetch($rootScope.USERNAME_KEY)
+      .success(function (value) {
+        $scope.credentials.username = value;
+        $cordovaPreferences.fetch($rootScope.PASSWORD_KEY)
+          .success(function (value) {
+            $scope.credentials.password = value;
+            $scope.login();
+          });
+      });
+  });
 })
 
 .controller('signUpCtrl', function($scope, $state) {
