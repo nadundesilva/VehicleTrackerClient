@@ -1,7 +1,20 @@
 angular.module('app.controllers', ['ngCordova'])
 
-.controller('homeCtrl', function($scope) {
-
+.controller('menuCtrl', function($scope, $rootScope, $http, $cordovaPreferences, $cordovaToast, $ionicHistory, $state) {
+  $scope.logout = function() {
+    $http.get($rootScope.MAIN_SERVER_URL + '/logout')
+      .then(function(response) {
+        if (response.data.status == 'SUCCESS') {
+          $cordovaPreferences.remove($rootScope.USERNAME_KEY);
+          $cordovaPreferences.remove($rootScope.PASSWORD_KEY);
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+          $cordovaToast.showShortBottom('Logout successful');
+          $state.go('login', {}, {location: "replace", reload: true});
+        }
+      });
+  };
 })
 
 .controller('loginCtrl', function($scope, $rootScope, $http, $cordovaPreferences, $ionicPlatform, $cordovaToast, $ionicHistory, $state) {
@@ -23,6 +36,7 @@ angular.module('app.controllers', ['ngCordova'])
           $ionicHistory.nextViewOptions({
             disableBack: true
           });
+          $cordovaToast.showShortBottom('Login successful');
           $state.go('menu.home', {}, {location: "replace", reload: true});
         } else if (response.data.status == 'NOT_REGISTERED') {
           $cordovaToast.showShortBottom('Invalid username');
@@ -49,6 +63,10 @@ angular.module('app.controllers', ['ngCordova'])
     $scope.signUp = function() {
         $state.go('menu.home');
     }
+})
+
+.controller('homeCtrl', function($scope) {
+
 })
 
 .controller('addFuelFillUpCtrl', function($scope) {

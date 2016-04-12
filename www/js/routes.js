@@ -23,6 +23,7 @@ angular.module('app.routes', [])
   .state('menu', {
     url: '/nav-menu',
     templateUrl: 'templates/menu.html',
+    controller: 'menuCtrl',
     abstract:true
   })
 
