@@ -21,8 +21,8 @@
                 <ion-item ui-sref="menu.miscellaneousCosts" menu-close="">Misc. Costs</ion-item>
                 <ion-item ui-sref="menu.generateReport" menu-close="">Generate Report</ion-item>
                 <ion-item ui-sref="menu.settings" menu-close="">Settings</ion-item>
-                <ion-item ui-sref="login" menu-close="">Login</ion-item>
-                <ion-item ng-click="logout()" menu-close="">Logout</ion-item>
+                <ion-item ui-sref="login" menu-close="" ng-hide="!loginVisible">Login</ion-item>
+                <ion-item ng-click="logout()" menu-close="" ng-hide="loginVisible">Logout</ion-item>
             </ion-list>
         </ion-content>
     </ion-side-menu>

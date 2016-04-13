@@ -1,23 +1,5 @@
 angular.module('app.controllers', ['ngCordova'])
 
-.controller('menuCtrl', function($scope, $rootScope, $http, $cordovaPreferences, $cordovaToast, $ionicHistory, $state) {
-  $scope.logout = function() {
-    $http.get($rootScope.MAIN_SERVER_URL + '/logout')
-      .then(function(response) {
-        if (response.data.status == 'SUCCESS') {
-          $cordovaPreferences.remove($rootScope.USERNAME_KEY);
-          $cordovaPreferences.remove($rootScope.PASSWORD_KEY);
-          $cordovaPreferences.remove($rootScope.ONLINE_MODE_KEY);
-          $ionicHistory.nextViewOptions({
-            disableBack: true
-          });
-          $cordovaToast.showShortBottom('Logout successful');
-          $state.go('login', {}, {location: "replace", reload: true});
-        }
-      });
-  };
-})
-
 .controller('loginCtrl', function($scope, $rootScope, $http, $cordovaPreferences, $ionicPlatform, $cordovaToast, $ionicHistory, $state) {
   $scope.credentials = {};
   $scope.login = function() {
@@ -64,14 +46,16 @@ angular.module('app.controllers', ['ngCordova'])
           });
           $state.go('menu.home', {}, {location: "replace", reload: true});
         }
-      })
+      });
     $cordovaPreferences.fetch($rootScope.USERNAME_KEY)
       .success(function (value) {
         $scope.credentials.username = value;
         $cordovaPreferences.fetch($rootScope.PASSWORD_KEY)
           .success(function (value) {
             $scope.credentials.password = value;
-            $scope.login();
+            if ($scope.credentials.username != null && $scope.credentials.password != null) {
+              $scope.login();
+            }
           });
       });
   });
@@ -112,6 +96,31 @@ angular.module('app.controllers', ['ngCordova'])
           });
       }
     }
+})
+
+.controller('menuCtrl', function($scope, $rootScope, $http, $cordovaPreferences, $cordovaToast, $ionicHistory, $state) {
+  $scope.$on('$ionicView.enter', function() {
+    $cordovaPreferences.fetch($rootScope.ONLINE_MODE_KEY)
+      .success(function (value) {
+        $scope.loginVisible = !value;
+      });
+  });
+
+  $scope.logout = function() {
+    $http.get($rootScope.MAIN_SERVER_URL + '/logout')
+      .then(function(response) {
+        if (response.data.status == 'SUCCESS') {
+          $cordovaPreferences.remove($rootScope.USERNAME_KEY);
+          $cordovaPreferences.remove($rootScope.PASSWORD_KEY);
+          $cordovaPreferences.remove($rootScope.ONLINE_MODE_KEY);
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+          $cordovaToast.showShortBottom('Logout successful');
+          $state.go('login', {}, {location: "replace", reload: true});
+        }
+      });
+  };
 })
 
 .controller('homeCtrl', function($scope) {
