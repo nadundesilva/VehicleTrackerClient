@@ -24,6 +24,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
   //Setting constants
   $rootScope.USERNAME_KEY = 'username';
   $rootScope.PASSWORD_KEY = 'password';
+  $rootScope.ONLINE_MODE_KEY = 'online_mode';
 
   $rootScope.MAIN_SERVER_URL = 'http://192.168.1.3/symfony/vehicle_tracker/web';
-})
+});

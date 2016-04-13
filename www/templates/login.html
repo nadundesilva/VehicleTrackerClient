@@ -1,23 +1,23 @@
 <ion-view title="Login" class="cover-page">
-  <ion-content overflow-scroll="true" padding="true" scroll="false" class="has-header">
+  <ion-content overflow-scroll="true" padding="true" class="has-header">
     <form class="list">
       <div class="list card">
         <div class="item item-body">
           <ion-list>
             <label class="item item-input" name="username">
                 <span class="input-label">Username</span>
-                <input type="text" placeholder="Enter your username" ng-model="credentials.username">
+                <input type="text" placeholder="Enter your username" ng-model="credentials.username" required>
             </label>
             <label class="item item-input" name="password">
                 <span class="input-label">Password</span>
-                <input type="password" placeholder="Enter your password" ng-model="credentials.password">
+                <input type="password" placeholder="Enter your password" ng-model="credentials.password" required>
             </label>
           </ion-list>
         </div>
       </div>
-      <a id="login-button4" class="button button-balanced  button-block icon ion-log-in" ng-click="login()"> Log in</a>
-      <a ui-sref="signUp" id="login-button5" class="button button-positive  button-block button-clear icon ">Or Create an Account</a>
-      <a ui-sref="menu.home" id="login-button18" class="button button-positive  button-block button-clear icon ">Or work offline</a>
+      <a class="button button-balanced  button-block icon ion-log-in" ng-click="login()"> Log in</a>
+      <a ui-sref="signUp" class="button button-positive  button-block button-clear icon">Or Create an Account</a>
+      <a class="button button-positive  button-block button-clear icon" ng-click="workOffline()">Or work offline</a>
     </form>
   </ion-content>
 </ion-view>
