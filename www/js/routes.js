@@ -31,8 +31,7 @@ angular.module('app.routes', [])
     url: '/home',
     views: {
       'side-menu21': {
-        templateUrl: 'templates/home.html',
-        controller: 'homeCtrl'
+        templateUrl: 'templates/home.html'
       }
     }
   })
@@ -137,10 +136,14 @@ angular.module('app.routes', [])
     }
   })
 
-  .state('report', {
+  .state('menu.report', {
     url: '/report',
-    templateUrl: 'templates/report.html',
-    controller: 'reportCtrl'
+    views: {
+      'side-menu21': {
+        templateUrl: 'templates/generateReport.html',
+        controller: 'generateReportCtrl'
+      }
+    }
   })
 
   .state('menu.vehicle', {
