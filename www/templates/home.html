@@ -1,25 +1,21 @@
-<ion-view title="Home" class="page">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <div class="list card">
-            <div class="item item-body">
-                <ion-list>
-                    <ion-item class="item-thumbnail-left" ui-sref="menu.addCheckIn">
-                        <img src="img/location-icon.png">
-                        <h2>Check In</h2>
-                        <p>Tap to check in</p>
-                    </ion-item>
-                    <ion-item class="item-thumbnail-left" ui-sref="menu.addFuelFillUp">
-                        <img src="img/fuel-icon.png">
-                        <h2>Add Fill Up</h2>
-                        <p>Tap to add fill-up details</p>
-                    </ion-item>
-                    <ion-item class="item-thumbnail-left" ui-sref="menu.addMiscellaneousCost">
-                        <img src="img/misc-cost-icon.png">
-                        <h2>Add Misc. Costs</h2>
-                        <p>Tap to add misc. cost</p>
-                    </ion-item>
-                </ion-list>
-            </div>
-        </div>
-    </ion-content>
+<ion-view view-title="Home">
+  <ion-content overflow-scroll="true">
+    <div class="list animate-fade-slide-in-right">
+      <a ui-sref="menu.checkIn" class="item item-bg-image">
+        <img src="img/check-in-landscape-thumbnail.jpg">
+        <h2>Check In</h2>
+        <p>Tap to check in</p>
+      </a>
+      <a ui-sref="menu.addFuelFillUp" class="item item-bg-image">
+        <img src="img/fuel-fill-up-landscape-thumbnail.jpg">
+        <h2>Add Fill Up</h2>
+        <p>Tap to add fill-up details</p>
+      </a>
+      <a ui-sref="menu.addMiscellaneousCost" class="item item-bg-image">
+        <img src="img/misc-cost-landscape-thumbnail.jpg">
+        <h2>Add Misc. Costs</h2>
+        <p>Tap to add misc. cost</p>
+      </a>
+    </div>
+  </ion-content>
 </ion-view>

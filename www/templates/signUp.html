@@ -1,36 +1,15 @@
-<ion-view title="Sign Up" class="cover-page">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <form class="list">
-            <div class="list card">
-                <div class="item item-body">
-                    <ion-list>
-                        <label class="item item-input" name="username">
-                            <span class="input-label">Username</span>
-                            <input type="text" placeholder="Enter a username" ng-model="user.username" required>
-                        </label>
-                        <label class="item item-input" name="first-name">
-                            <span class="input-label">First Name</span>
-                            <input type="text" placeholder="Enter your first name" ng-model="user.first_name" required>
-                        </label>
-                        <label class="item item-input" name="last-name">
-                            <span class="input-label">Last Name</span>
-                            <input type="text" placeholder="Enter your last name" ng-model="user.last_name">
-                        </label>
-                        <label class="item item-input" name="email">
-                            <span class="input-label">Email</span>
-                            <input type="email" placeholder="Enter your email" ng-model="user.email" required>
-                        </label>
-                        <label class="item item-input" name="password">
-                            <span class="input-label">Password</span>
-                            <input type="password" placeholder="Enter a password" ng-model="user.password" required>
-                        </label>
-                        <label class="item item-input" name="confirm-password">
-                            <span class="input-label">Confirm Password</span>
-                            <input type="password" placeholder="Re-enter password" ng-model="user.confirm_password" required>
-                        </label>
-                    </ion-list>
-                </div>
-            </div>
-            <a id="signUp-button6" class="button button-royal  button-block icon ion-android-checkmark-circle" ng-click="signUp()"> Sign up</a>
-    </ion-content>
+<ion-view title="Sign Up">
+  <ion-content overflow-scroll="true" padding="true" style="background: url(img/sign-up-background.jpg) center; background-size: cover;">
+    <div class="list">
+      <ion-md-input placeholder="Username" highlight-color="balanced" type="text" ng-model="user.username" ng-required="required"></ion-md-input>
+      <ion-md-input placeholder="First Name" highlight-color="balanced" type="text" ng-model="user.first_name" ng-required="required"></ion-md-input>
+      <ion-md-input placeholder="Last Name" highlight-color="balanced" type="text" ng-model="user.last_name"></ion-md-input>
+      <ion-md-input placeholder="Email" highlight-color="balanced" type="email" ng-model="user.email" ng-required="required"></ion-md-input>
+      <ion-md-input placeholder="Password" highlight-color="balanced" type="password" ng-model="user.password" ng-required="required"></ion-md-input>
+      <ion-md-input placeholder="Confirm Password" highlight-color="balanced" type="password" ng-model="user.confirm_password" ng-required="required"></ion-md-input>
+    </div>
+    <div class="list">
+      <button class="button button-full button-bar-royal ink icon ion-android-checkmark-circle" ng-click="signUp()"> Sign up</button>
+    </div>
+  </ion-content>
 </ion-view>

@@ -1,23 +1,20 @@
-<ion-view title="Login" class="cover-page">
-  <ion-content overflow-scroll="true" padding="true" class="has-header">
-    <form class="list">
-      <div class="list card">
-        <div class="item item-body">
-          <ion-list>
-            <label class="item item-input" name="username">
-                <span class="input-label">Username</span>
-                <input type="text" placeholder="Enter your username" ng-model="credentials.username" required>
-            </label>
-            <label class="item item-input" name="password">
-                <span class="input-label">Password</span>
-                <input type="password" placeholder="Enter your password" ng-model="credentials.password" required>
-            </label>
-          </ion-list>
-        </div>
+<ion-view view-title="Login" align-title="left">
+  <link href="css/login.css" rel="stylesheet">
+  <ion-content style="background: url(img/login-background.jpg) center; background-size: cover;">
+    <div class="hero no-header flat">
+      <div class="content">
+        <div class="app-icon"></div>
+        <h1>{{ app_name }}</h1>
       </div>
-      <a class="button button-balanced  button-block icon ion-log-in" ng-click="login()"> Log in</a>
-      <a ui-sref="signUp" class="button button-positive  button-block button-clear icon">Or Create an Account</a>
-      <a class="button button-positive  button-block button-clear icon" ng-click="workOffline()">Or work offline</a>
-    </form>
+    </div>
+    <div class="list">
+      <ion-md-input id="username" placeholder="Username" highlight-color="balanced" type="text" ng-model="credentials.username" required></ion-md-input>
+      <ion-md-input id="password" placeholder="Password" highlight-color="energized" type="password" ng-model="credentials.password" required></ion-md-input>
+    </div>
+    <div class="list padding-vertical">
+      <button class="button button-full button-bar-positive ink" ng-click="login()"> Login</button>
+      <button ui-sref="signUp" class="button button-full button-bar-royal ink">Or Create an Account</button>
+      <button class="button button-full button-bar-energized ink" ng-click="workOffline()">Or work offline</button>
+    </div>
   </ion-content>
 </ion-view>

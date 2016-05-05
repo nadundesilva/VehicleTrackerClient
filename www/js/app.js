@@ -1,6 +1,6 @@
-angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngCordova'])
+angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services', 'app.directives', 'ngCordova', 'ionMdInput', 'ionic-material'])
 
-.run(function($ionicPlatform, $rootScope) {
+.run(function($ionicPlatform, $rootScope, $ionicHistory, $cordovaToast) {
   $ionicPlatform.ready(function() {
     if (window.cordova && window.cordova.plugins && window.cordova.plugins.Keyboard) {
       cordova.plugins.Keyboard.hideKeyboardAccessoryBar(true);
@@ -12,11 +12,31 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
     }
   });
 
+  $ionicPlatform.registerBackButtonAction(function(e){
+    if ($rootScope.backButtonPressedOnceToExit) {
+      ionic.Platform.exitApp();
+    }
+    else if ($ionicHistory.backView() != null) {
+      $ionicHistory.backView().go();
+    }
+    else {
+      $rootScope.backButtonPressedOnceToExit = true;
+      $cordovaToast.showShortBottom("Press back button again to exit");
+      setTimeout(function(){
+        $rootScope.backButtonPressedOnceToExit = false;
+      }, 2000);
+    }
+    e.preventDefault();
+    return false;
+  }, 101);
+
+  $rootScope.APP_NAME = 'Vehicle Manager';
+
   //Setting constants
   $rootScope.USERNAME_KEY = 'username';
   $rootScope.PASSWORD_KEY = 'password';
   $rootScope.ONLINE_MODE_KEY = 'online_mode';
 
   $rootScope.MAIN_SERVER_URL = 'http://192.168.1.3/symfony/vehicle_tracker/web';
-  //$rootScope.MAIN_SERVER_URL = 'https://nadundesilva-vehicle-tracker.herokuapp.com';
+  // $rootScope.MAIN_SERVER_URL = 'https://nadundesilva-vehicle-tracker.herokuapp.com';
 });

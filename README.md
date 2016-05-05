@@ -1,4 +1,4 @@
-Vehicle Tracker Client
+Vehicle Manager Client
 ======================
 
 This is a vehicle and fuel tracker designed for the module CS3202 - Software Engineering Project.

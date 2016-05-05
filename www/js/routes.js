@@ -5,20 +5,8 @@ angular.module('app.routes', [])
   // Ionic uses AngularUI Router which uses the concept of states
   // Learn more here: https://github.com/angular-ui/ui-router
   // Set up the various states which the app can be in.
-  // Each state's controller can be found in controllers.js
+  // Each state's controller can be found in miscellaneous-cost.js
   $stateProvider
-
-  .state('login', {
-    url: '/login',
-    templateUrl: 'templates/login.html',
-    controller: 'loginCtrl'
-  })
-
-  .state('signUp', {
-    url: '/sign-up',
-    templateUrl: 'templates/signUp.html',
-    controller: 'signUpCtrl'
-  })
 
   .state('menu', {
     url: '/nav-menu',
@@ -27,11 +15,41 @@ angular.module('app.routes', [])
     abstract:true
   })
 
+  .state('menu.login', {
+    url: '/login',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/login.html',
+        controller: 'loginCtrl'
+      },
+      'fabContent': {
+        template: ''
+      }
+    }
+  })
+
+  .state('menu.signUp', {
+    url: '/sign-up',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/signUp.html',
+        controller: 'signUpCtrl'
+      },
+      'fabContent': {
+        template: ''
+      }
+    }
+  })
+
   .state('menu.home', {
     url: '/home',
     views: {
-      'side-menu21': {
-        templateUrl: 'templates/home.html'
+      'menuContent': {
+        templateUrl: 'templates/home.html',
+        controller: 'homeCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -39,9 +57,12 @@ angular.module('app.routes', [])
   .state('menu.addFuelFillUp', {
     url: '/add-edit-fill-up',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/addFuelFillUp.html',
         controller: 'addFuelFillUpCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -49,9 +70,12 @@ angular.module('app.routes', [])
   .state('menu.addMiscellaneousCost', {
     url: '/add-edit-misc-cost',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/addMiscellaneousCost.html',
         controller: 'addMiscellaneousCostCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -59,9 +83,12 @@ angular.module('app.routes', [])
   .state('menu.addCheckIn', {
     url: '/add-edit-check-in',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/addCheckIn.html',
         controller: 'addCheckInCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -69,9 +96,12 @@ angular.module('app.routes', [])
   .state('menu.vehicles', {
     url: '/manage-vehicles',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/vehicles.html',
         controller: 'vehiclesCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -79,9 +109,12 @@ angular.module('app.routes', [])
   .state('menu.checkIns', {
     url: '/check-ins',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/checkIns.html',
         controller: 'checkInsCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -89,19 +122,25 @@ angular.module('app.routes', [])
   .state('menu.fuelFillUps', {
     url: '/fill-ups',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/fuelFillUps.html',
         controller: 'fuelFillUpsCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
 
-  .state('menu.addVehicle', {
-    url: '/add-edit-vehicle',
+  .state('menu.addEditVehicle', {
+    url: '/add-edit-vehicle/:mode?name&license_plate_no&description&fuel_one&fuel_two&make&model&year',
     views: {
-      'side-menu21': {
-        templateUrl: 'templates/addVehicle.html',
-        controller: 'addVehicleCtrl'
+      'menuContent': {
+        templateUrl: 'templates/addEditVehicle.html',
+        controller: 'addEditVehicleCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -109,9 +148,12 @@ angular.module('app.routes', [])
   .state('menu.settings', {
     url: '/settings',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/settings.html',
         controller: 'settingsCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -119,9 +161,12 @@ angular.module('app.routes', [])
   .state('menu.miscellaneousCosts', {
     url: '/misc-costs',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/miscellaneousCosts.html',
         controller: 'miscellaneousCostsCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -129,9 +174,12 @@ angular.module('app.routes', [])
   .state('menu.generateReport', {
     url: '/generate-report',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/generateReport.html',
         controller: 'generateReportCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -139,19 +187,25 @@ angular.module('app.routes', [])
   .state('menu.report', {
     url: '/report',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/generateReport.html',
         controller: 'generateReportCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
 
   .state('menu.vehicle', {
-    url: '/vehicle',
+    url: '/vehicle/:mode?license_plate_no',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/vehicle.html',
         controller: 'vehicleCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -159,9 +213,12 @@ angular.module('app.routes', [])
   .state('menu.checkIn', {
     url: '/check-in',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/checkIn.html',
         controller: 'checkInCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -169,9 +226,12 @@ angular.module('app.routes', [])
   .state('menu.fuelFillUp', {
     url: '/fill-up',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/fuelFillUp.html',
         controller: 'fuelFillUpCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
@@ -179,13 +239,16 @@ angular.module('app.routes', [])
   .state('menu.miscellaneousCost', {
     url: '/misc-cost',
     views: {
-      'side-menu21': {
+      'menuContent': {
         templateUrl: 'templates/miscellaneousCost.html',
         controller: 'miscellaneousCostCtrl'
+      },
+      'fabContent': {
+        template: ''
       }
     }
   })
 
-$urlRouterProvider.otherwise('/login')
+$urlRouterProvider.otherwise('/nav-menu/login')
 
 });
