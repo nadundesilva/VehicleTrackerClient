@@ -1,14 +1,17 @@
 angular.module('app.controllers')
 
 .controller('homeCtrl', function($scope, $timeout, ionicMaterialMotion, ionicMaterialInk) {
-  // Initializing variables
-  $scope.$parent.showHeader();
-  $scope.$parent.clearFabs();
-  $scope.isExpanded = false;
-  $scope.$parent.setExpanded(false);
-  $scope.$parent.setHeaderFab(false);
-
+  // Initialization
   $scope.$on('$ionicView.enter', function() {
+    // Updating the view
+    $scope.$parent.showHeader();
+    $scope.$parent.clearFabs();
+    $scope.isExpanded = false;
+    $scope.$parent.setExpanded(false);
+    $scope.$parent.setHeaderFab(false);
+    ionicMaterialInk.displayEffect();
+    ionicMaterialMotion.ripple();
+
     // Set Motion
     $timeout(function () {
       ionicMaterialMotion.slideUp({
@@ -17,11 +20,8 @@ angular.module('app.controllers')
     }, 300);
     $timeout(function () {
       ionicMaterialMotion.fadeSlideInRight({
-        startVelocity: 2000
+        startVelocity: 4000
       });
     }, 700);
-
-    // Set Ink
-    ionicMaterialInk.displayEffect();
   });
 });

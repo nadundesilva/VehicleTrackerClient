@@ -7,12 +7,32 @@ angular.module('app.controllers')
   $scope.hasHeaderFabRight = false;
   $scope.app_name = $rootScope.APP_NAME;
 
+  /*
+   * Making the logout button or leave button visible
+   */
+  $scope.$on('$ionicView.enter', function() {
+    $cordovaPreferences.fetch($rootScope.ONLINE_MODE_KEY)
+      .success(function (value) {
+        $scope.logoutVisible = value;
+      });
+  });
+
+  /*
+   * Marking the visited link active
+   */
+  var navIcons = document.getElementsByClassName('ion-navicon');
+  for (var i = 0; i < navIcons.length; i++) {
+    navIcons.addEventListener('click', function() {
+      this.classList.toggle('active');
+    });
+  }
+
   $scope.leaveOfflineMode = function() {
     $cordovaPreferences.remove($rootScope.ONLINE_MODE_KEY);
     $ionicHistory.nextViewOptions({
       disableBack: true
     });
-    $state.go('login', {}, {location: "replace", reload: true});
+    $state.go('menu.login', {}, {location: "replace", reload: true});
   };
 
   $scope.logout = function() {
@@ -27,7 +47,7 @@ angular.module('app.controllers')
             disableBack: true
           });
           $cordovaToast.showShortBottom('Logout successful');
-          $state.go('login', {}, {location: "replace", reload: true});
+          $state.go('menu.login', {}, {location: "replace", reload: true});
         } else {
           $cordovaToast.showShortBottom('Unknown error');
         }
@@ -37,24 +57,4 @@ angular.module('app.controllers')
         $scope.hideLoadingOverlay();
       });
   };
-
-  /*
-   * Making the logout button or leave button visible
-   */
-  $scope.$on('$ionicView.enter', function() {
-    $cordovaPreferences.fetch($rootScope.ONLINE_MODE_KEY)
-      .success(function (value) {
-        $scope.logoutVisible = !value;
-      });
-  });
-
-  /*
-   * Marking the visited link active
-   */
-  var navIcons = document.getElementsByClassName('ion-navicon');
-  for (var i = 0; i < navIcons.length; i++) {
-    navIcons.addEventListener('click', function() {
-      this.classList.toggle('active');
-    });
-  }
 });

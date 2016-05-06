@@ -1,9 +1,19 @@
 angular.module('app.controllers')
 
-.controller('signUpCtrl', function($scope, $rootScope, $http, $cordovaPreferences, $cordovaToast, $ionicHistory, $state, ionicMaterialInk) {
-  // Initializing variables
-  $scope.user = {};
-  
+.controller('signUpCtrl', function($scope, $rootScope, $http, $cordovaPreferences, $cordovaToast, $ionicHistory, $state, $timeout, ionicMaterialInk) {
+  // Initialization
+  $scope.$on('$ionicView.enter', function() {
+    // Initializing variables
+    $scope.user = {};
+
+    // Updating the view
+    $scope.clearFabs();
+    $timeout(function () {
+      $scope.hideHeader();
+    }, 0);
+    ionicMaterialInk.displayEffect();
+  });
+
   /*
   * Signs up the user using the details provided
   * A user will be created in the database
@@ -27,7 +37,7 @@ angular.module('app.controllers')
               disableBack: true
             });
             $cordovaToast.showShortBottom('Sign up successful');
-            $state.go('login', {}, {location: "replace", reload: true});
+            $state.go('menu.login', {}, {location: "replace", reload: true});
           } else if (response.data.status == 'USER_DUPLICATE_USERNAME') {
             $cordovaToast.showShortBottom('Username already exists');
           } else if (response.data.status == 'USER_DUPLICATE_EMAIL') {
@@ -48,8 +58,5 @@ angular.module('app.controllers')
           $scope.hideLoadingOverlay();
         });
     }
-  }
-
-  // Refresh display effects for material view
-  ionicMaterialInk.displayEffect();
+  };
 });

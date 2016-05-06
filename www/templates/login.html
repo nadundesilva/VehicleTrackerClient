@@ -1,20 +1,20 @@
 <ion-view view-title="Login" align-title="left">
   <link href="css/login.css" rel="stylesheet">
-  <ion-content style="background: url(img/login-background.jpg) center; background-size: cover;">
+  <ion-content overflow-scroll="true" padding="true" style="background: url(img/login-background.jpg) center; background-size: cover;">
     <div class="hero no-header flat">
       <div class="content">
         <div class="app-icon"></div>
-        <h1>{{ app_name }}</h1>
+        <h1 class="app-name">{{ app_name }}</h1>
       </div>
     </div>
     <div class="list">
       <ion-md-input id="username" placeholder="Username" highlight-color="balanced" type="text" ng-model="credentials.username" required></ion-md-input>
       <ion-md-input id="password" placeholder="Password" highlight-color="energized" type="password" ng-model="credentials.password" required></ion-md-input>
     </div>
-    <div class="list padding-vertical">
+    <div class="list">
       <button class="button button-full button-bar-positive ink" ng-click="login()"> Login</button>
-      <button ui-sref="signUp" class="button button-full button-bar-royal ink">Or Create an Account</button>
-      <button class="button button-full button-bar-energized ink" ng-click="workOffline()">Or work offline</button>
+      <button ui-sref="menu.signUp" class="button button-full button-bar-royal ink">Or Create an Account</button>
+      <button class="button button-full button-bar-balanced ink" ng-click="workOffline()">Or work offline</button>
     </div>
   </ion-content>
 </ion-view>

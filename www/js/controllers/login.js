@@ -1,9 +1,63 @@
 angular.module('app.controllers')
 
-.controller('loginCtrl', function($scope, $rootScope, $http, $cordovaPreferences, $ionicPlatform, $cordovaToast, $ionicHistory, $state, ionicMaterialInk) {
-  // Initializing variables
-  $scope.credentials = {};
-  $scope.app_name = $rootScope.APP_NAME;
+.controller('loginCtrl', function($scope, $rootScope, $http, $cordovaPreferences, $ionicPlatform, $cordovaToast, $ionicHistory, $state, $timeout, ionicMaterialInk) {
+  // Initialization
+  $scope.$on('$ionicView.enter', function() {
+    // Initializing variables
+    $scope.credentials = {};
+    $scope.app_name = $rootScope.APP_NAME;
+    
+    // Updating the view
+    $scope.clearFabs();
+    $timeout(function () {
+      $scope.hideHeader();
+    }, 0);
+    ionicMaterialInk.displayEffect();
+  });
+
+  /*
+   * Initialization after platform had finished loading
+   * This wil check if the user had entered the offline mode or had logged into the system before
+   * If the user had worked in offline mode before the application will enter the offline mode
+   * If the user had logged in before this will automatically login the user using the previous credentials
+   */
+  $ionicPlatform.ready(function() {
+    // Checks if the offline mode was used previously
+    $cordovaPreferences.fetch($rootScope.ONLINE_MODE_KEY)
+      .success(function (value) {
+        if (value != null && !value) { // Checking if the user had used the offline mode in the last login
+          // Going to the home page
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+          $state.go('menu.home', {}, {location: "replace", reload: true});
+        }
+      });
+
+    // Retrieved the username and password to login if the user had logged in before
+    $cordovaPreferences.fetch($rootScope.USERNAME_KEY)
+      .success(function (value) {
+        $scope.credentials.username = value;
+        $cordovaPreferences.fetch($rootScope.PASSWORD_KEY)
+          .success(function (value) {
+            $scope.credentials.password = value;
+            if ($scope.credentials.username != null && $scope.credentials.password != null) {
+              // For adjusting the md ion input input bug
+              var e = document.getElementsByClassName('item item-input item-md-label ng-valid');
+              for(var i = 0; i < e.length; i++) {
+                e[i].click();
+              }
+
+              // Logging into the system
+              $scope.login();
+            }
+          })
+          .error(function (error) {
+            $scope.credentials.username = null; // Fetched username also  removed due to error in password
+            $cordovaPreferences.remove($rootScope.USERNAME_KEY);
+          });
+      });
+  });
 
   /*
   * Logs into the system
@@ -65,53 +119,4 @@ angular.module('app.controllers')
     $cordovaToast.showShortBottom('Offline mode activated');
     $state.go('menu.home', {}, {location: "replace", reload: true});
   };
-
-  /*
-  * Initialization after platform had finished loading
-  * This wil check if the user had entered the offline mode or had logged into the system before
-  * If the user had worked in offline mode before the application will enter the offline mode
-  * If the user had logged in before this will automatically login the user using the previous credentials
-  */
-  $ionicPlatform.ready(function() {
-    // Checks if the offline mode was used previously
-    $cordovaPreferences.fetch($rootScope.ONLINE_MODE_KEY)
-      .success(function (value) {
-        if (value != null && !value) { // Checking if the user had used the offline mode in the last login
-          // Going to the home page
-          $ionicHistory.nextViewOptions({
-            disableBack: true
-          });
-          $state.go('menu.home', {}, {location: "replace", reload: true});
-        }
-      });
-
-    // Retrieved the username and password to login if the user had logged in before
-    $cordovaPreferences.fetch($rootScope.USERNAME_KEY)
-      .success(function (value) {
-        $scope.credentials.username = value;
-        $cordovaPreferences.fetch($rootScope.PASSWORD_KEY)
-          .success(function (value) {
-            $scope.credentials.password = value;
-            if ($scope.credentials.username != null && $scope.credentials.password != null) {
-              // For adjusting the md ion input input bug
-              var e = document.getElementsByClassName('item item-input item-md-label ng-valid');
-              for(var i = 0; i < e.length; i++) {
-                e[i].click();
-              }
-
-              // Logging into the system
-              $scope.login();
-            }
-          })
-          .error(function (error) {
-            $scope.credentials.username = null; // Fetched username also  removed due to error in password
-            $cordovaPreferences.remove($rootScope.USERNAME_KEY);
-          });
-      });
-  });
-
-  // Updating the view
-  $scope.clearFabs();
-  $scope.hideHeader();
-  ionicMaterialInk.displayEffect();
 });
