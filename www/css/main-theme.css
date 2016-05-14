@@ -5,3 +5,7 @@
 .cover-page {
   background-color:#676869;
 }
+
+span.input-label {
+  color: black;
+}

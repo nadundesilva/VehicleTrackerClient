@@ -6,12 +6,12 @@ angular.module('app.controllers')
     // Initializing variables
     $scope.credentials = {};
     $scope.app_name = $rootScope.APP_NAME;
-    
+
     // Updating the view
-    $scope.clearFabs();
     $timeout(function () {
       $scope.hideHeader();
     }, 0);
+    $scope.clearFabs(0);
     ionicMaterialInk.displayEffect();
   });
 

@@ -73,10 +73,10 @@ angular.module('app.controllers', ['ngCordova'])
     $scope.hasHeader();
   };
 
-  $scope.clearFabs = function() {
+  $scope.clearFabs = function(currentButtonCount) {
     var fabs = document.getElementsByClassName('button-fab');
-    if (fabs.length && fabs.length > 1) {
-      fabs[0].remove();
+    if (fabs.length && fabs.length > currentButtonCount) {
+      fabs[fabs.length - currentButtonCount - 1].remove();
     }
   };
 });

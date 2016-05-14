@@ -9,5 +9,10 @@
     "angular": "1.4.3",
     "angular-animate": "1.4.3",
     "angular-sanitize": "1.4.3"
+  },
+  "dependencies": {
+    "ion-md-input": "^1.0.4",
+    "ionic-material": "^0.4.2",
+    "ngCordova": "^0.1.26-alpha"
   }
 }

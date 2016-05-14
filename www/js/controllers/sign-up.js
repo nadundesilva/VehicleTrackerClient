@@ -7,7 +7,6 @@ angular.module('app.controllers')
     $scope.user = {};
 
     // Updating the view
-    $scope.clearFabs();
     $timeout(function () {
       $scope.hideHeader();
     }, 0);

@@ -15,19 +15,6 @@ angular.module('app.routes', [])
     abstract:true
   })
 
-  .state('menu.login', {
-    url: '/login',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/login.html',
-        controller: 'loginCtrl'
-      },
-      'fabContent': {
-        template: ''
-      }
-    }
-  })
-
   .state('menu.signUp', {
     url: '/sign-up',
     views: {
@@ -35,7 +22,26 @@ angular.module('app.routes', [])
         templateUrl: 'templates/signUp.html',
         controller: 'signUpCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
+        template: ''
+      }
+    }
+  })
+
+  .state('menu.login', {
+    url: '/login',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/login.html',
+        controller: 'loginCtrl'
+      },
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
         template: ''
       }
     }
@@ -48,46 +54,10 @@ angular.module('app.routes', [])
         templateUrl: 'templates/home.html',
         controller: 'homeCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
         template: ''
-      }
-    }
-  })
-
-  .state('menu.addFuelFillUp', {
-    url: '/add-edit-fill-up',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/addFuelFillUp.html',
-        controller: 'addFuelFillUpCtrl'
       },
-      'fabContent': {
-        template: ''
-      }
-    }
-  })
-
-  .state('menu.addMiscellaneousCost', {
-    url: '/add-edit-misc-cost',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/addMiscellaneousCost.html',
-        controller: 'addMiscellaneousCostCtrl'
-      },
-      'fabContent': {
-        template: ''
-      }
-    }
-  })
-
-  .state('menu.addCheckIn', {
-    url: '/add-edit-check-in',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/addCheckIn.html',
-        controller: 'addCheckInCtrl'
-      },
-      'fabContent': {
+      'fabRightContent': {
         template: ''
       }
     }
@@ -100,7 +70,89 @@ angular.module('app.routes', [])
         templateUrl: 'templates/vehicles.html',
         controller: 'vehiclesCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
+        template: '<button ui-sref=\'menu.addEditVehicle({ mode : "ADD"})\' id="fab-vehicles-add" class="button button-fab button-fab-bottom-right button-balanced-900"><i class="icon ion-plus"></i></button>',
+        controller: function ($timeout) {
+          $timeout(function () {
+            document.getElementById('fab-vehicles-add').classList.toggle('on');
+          }, 200);
+        }
+      }
+    }
+  })
+
+  .state('menu.vehicle', {
+    url: '/vehicle/:mode?license_plate_no',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/vehicle.html',
+        controller: 'vehicleCtrl'
+      },
+      'fabLeftContent': {
+        template: '<button id="fab-vehicle-delete" class="button button-fab button-fab-bottom-left button-assertive-900"><i class="icon ion-android-cancel"  ng-hide=\'mode == "MANAGED"\'></i></button>',
+        controller: function ($timeout) {
+          $timeout(function () {
+            document.getElementById('fab-vehicle-delete').classList.toggle('on');
+          }, 200);
+        }
+      },
+      'fabRightContent': {
+        template: '<button ui-sref=\'menu.addEditVehicle({ mode : "EDIT", name : vehicle.name, license_plate_no : vehicle.license_plate_no, description : vehicle.description, fuel_one : vehicle.fuel_one, fuel_two : vehicle.fuel_two, make : vehicle.make, model : vehicle.model, year : vehicle.year })\' id="fab-vehicle-edit" class="button button-fab button-fab-bottom-right button-positive-900"  ng-hide=\'mode == "MANAGED"\'><i class="icon ion-edit"></i></button>',
+        controller: function ($timeout) {
+          $timeout(function () {
+            document.getElementById('fab-vehicle-edit').classList.toggle('on');
+          }, 200);
+        }
+      }
+    }
+  })
+
+  .state('menu.addFuelFillUp', {
+    url: '/add-edit-fill-up',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/addFuelFillUp.html',
+        controller: 'addFuelFillUpCtrl'
+      },
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
+        template: ''
+      }
+    }
+  })
+
+  .state('menu.addMiscellaneousCost', {
+    url: '/add-edit-misc-cost',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/addMiscellaneousCost.html',
+        controller: 'addMiscellaneousCostCtrl'
+      },
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
+        template: ''
+      }
+    }
+  })
+
+  .state('menu.addCheckIn', {
+    url: '/add-edit-check-in',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/addCheckIn.html',
+        controller: 'addCheckInCtrl'
+      },
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
         template: ''
       }
     }
@@ -113,7 +165,10 @@ angular.module('app.routes', [])
         templateUrl: 'templates/checkIns.html',
         controller: 'checkInsCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
         template: ''
       }
     }
@@ -126,7 +181,10 @@ angular.module('app.routes', [])
         templateUrl: 'templates/fuelFillUps.html',
         controller: 'fuelFillUpsCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
         template: ''
       }
     }
@@ -139,7 +197,10 @@ angular.module('app.routes', [])
         templateUrl: 'templates/addEditVehicle.html',
         controller: 'addEditVehicleCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
         template: ''
       }
     }
@@ -152,7 +213,10 @@ angular.module('app.routes', [])
         templateUrl: 'templates/settings.html',
         controller: 'settingsCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
         template: ''
       }
     }
@@ -165,7 +229,10 @@ angular.module('app.routes', [])
         templateUrl: 'templates/miscellaneousCosts.html',
         controller: 'miscellaneousCostsCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
         template: ''
       }
     }
@@ -178,7 +245,10 @@ angular.module('app.routes', [])
         templateUrl: 'templates/generateReport.html',
         controller: 'generateReportCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
         template: ''
       }
     }
@@ -191,20 +261,10 @@ angular.module('app.routes', [])
         templateUrl: 'templates/generateReport.html',
         controller: 'generateReportCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
         template: ''
-      }
-    }
-  })
-
-  .state('menu.vehicle', {
-    url: '/vehicle/:mode?license_plate_no',
-    views: {
-      'menuContent': {
-        templateUrl: 'templates/vehicle.html',
-        controller: 'vehicleCtrl'
       },
-      'fabContent': {
+      'fabRightContent': {
         template: ''
       }
     }
@@ -217,7 +277,10 @@ angular.module('app.routes', [])
         templateUrl: 'templates/checkIn.html',
         controller: 'checkInCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
         template: ''
       }
     }
@@ -230,7 +293,10 @@ angular.module('app.routes', [])
         templateUrl: 'templates/fuelFillUp.html',
         controller: 'fuelFillUpCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
         template: ''
       }
     }
@@ -243,11 +309,14 @@ angular.module('app.routes', [])
         templateUrl: 'templates/miscellaneousCost.html',
         controller: 'miscellaneousCostCtrl'
       },
-      'fabContent': {
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
         template: ''
       }
     }
-  })
+  });
 
 $urlRouterProvider.otherwise('/nav-menu/login')
 

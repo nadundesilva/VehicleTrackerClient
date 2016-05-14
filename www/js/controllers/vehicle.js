@@ -1,8 +1,21 @@
 angular.module('app.controllers')
 
-.controller('vehicleCtrl', function($stateParams, $scope, $rootScope, $http, $state, $ionicHistory, $cordovaToast, $cordovaPreferences) {
+.controller('vehicleCtrl', function($stateParams, $scope, $rootScope, $http, $state, $ionicHistory, $cordovaToast, $cordovaPreferences, ionicMaterialInk, ionicMaterialMotion) {
+  // Initializing variables
   $scope.mode = $stateParams.mode;
-  $scope.$on('$ionicView.beforeEnter', function() {
+  $scope.vehicle = {};
+
+  // Initialization
+  $scope.$on('$ionicView.enter', function() {
+    // Updating the view
+    $scope.showHeader();
+    $scope.isExpanded = false;
+    $scope.setExpanded(true);
+    $scope.clearFabs(1);
+    $scope.setHeaderFab(false);
+    ionicMaterialInk.displayEffect();
+    ionicMaterialMotion.ripple();
+
     $scope.showLoadingOverlay('Retrieving Information');
     $http.get($rootScope.MAIN_SERVER_URL + '/vehicle/get/' + $stateParams.license_plate_no)
       .then(function (response) {

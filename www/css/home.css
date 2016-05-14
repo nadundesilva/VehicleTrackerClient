@@ -1,0 +1,13 @@
+div.list > a.item.item-bg-image {
+  min-height: 14em;
+}
+
+div.list > a.item.item-bg-image > h2, div.list > a.item.item-bg-image > p {
+  color: #fff;
+  position: relative;
+  text-shadow: 2px 2px 4px #000;
+}
+
+div.list > a.item.item-bg-image > img {
+  opacity: 1;
+}

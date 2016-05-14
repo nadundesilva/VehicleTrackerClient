@@ -5,10 +5,10 @@ angular.module('app.controllers')
   $scope.$on('$ionicView.enter', function() {
     // Updating the view
     $scope.$parent.showHeader();
-    $scope.$parent.clearFabs();
     $scope.isExpanded = false;
-    $scope.$parent.setExpanded(false);
-    $scope.$parent.setHeaderFab(false);
+    $scope.setExpanded(false);
+    $scope.clearFabs(0);
+    $scope.setHeaderFab(false);
     ionicMaterialInk.displayEffect();
     ionicMaterialMotion.ripple();
 

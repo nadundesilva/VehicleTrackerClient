@@ -1,7 +1,23 @@
 angular.module('app.controllers')
 
-.controller('vehiclesCtrl', function($scope, $rootScope, $http, $state, $ionicHistory, $cordovaToast) {
+.controller('vehiclesCtrl', function($scope, $rootScope, $http, $state, $ionicHistory, $cordovaToast, $timeout, $filter, ionicMaterialMotion, ionicMaterialInk) {
+  // Initializing variables
+  $scope.search_key = {};
+
+  // Initialization
   $scope.$on('$ionicView.beforeEnter', function() {
+    // Updating the view
+    $scope.showHeader();
+    $scope.isExpanded = false;
+    $scope.setExpanded(true);
+    $scope.clearFabs(1);
+    $scope.setHeaderFab(false);
+    ionicMaterialInk.displayEffect();
+    ionicMaterialMotion.ripple();
+
+    $scope.triggerAnimation();
+
+    // Loading vehicles
     $scope.showLoadingOverlay('Retrieving Vehicles');
     $http.get($rootScope.MAIN_SERVER_URL + '/vehicle/get')
       .then(function (response) {
@@ -18,9 +34,24 @@ angular.module('app.controllers')
           $cordovaToast.showShortBottom('Unknown error');
         }
         $scope.hideLoadingOverlay();
+        $scope.triggerAnimation();
       }, function (response) {
         $cordovaToast.showShortBottom('Connection error');
         $scope.hideLoadingOverlay();
       });
   });
+
+  $scope.triggerAnimation = function () {
+    // Set Motion
+    $timeout(function () {
+      ionicMaterialMotion.slideUp({
+        selector: '.slide-up'
+      });
+    }, 300);
+    $timeout(function () {
+      ionicMaterialMotion.fadeSlideInRight({
+        startVelocity: 4000
+      });
+    }, 700);
+  };
 });

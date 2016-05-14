@@ -1,19 +1,31 @@
 <ion-view title="Vehicle" class="page">
   <ion-content overflow-scroll="true" padding="true" class="has-header">
-    <span ng-hide="mode == 'MANAGED'">
-      <a ui-sref="menu.addEditVehicle({ mode : 'EDIT', name : vehicle.name, license_plate_no : vehicle.license_plate_no, description : vehicle.description, fuel_one : vehicle.fuel_one, fuel_two : vehicle.fuel_two, make : vehicle.make, model : vehicle.model, year : vehicle.year })" id="vehicle-button15" class="button button-positive  button-block icon ion-edit"> Edit</a>
-      <button id="vehicle-button19" class="button button-assertive  button-block icon ion-android-cancel"> Remove</button>
-    </span>
-    <div class="list card">
+    <div class="list padding card">
       <div class="item item-body">
-        <h1 id="vehicle-heading1" style="color:#000000;font-weight:400;">{{ vehicle.name }}</h1>
-        <h2 id="vehicle-heading2" style="color:#000000;">{{ vehicle.make + ' ' + vehicle.model + ' ' + vehicle.year }}</h2>
-        <h3 id="vehicle-heading3" style="color:#000000;">License Plate : {{ vehicle.license_plate_no }}</h3>
-        <h3 id="vehicle-heading4" style="color:#000000;">Fuel Type : {{ vehicle.fuel_one + (vehicle.fuel_two != null ? ' & ' + vehicle.fuel_two : '') }}</h3>
-        <h3 id="vehicle-heading5" style="color:#000000;">{{ (vehicle.owner == null ? 'Owned by you' : 'Owner : ' + vehicle.owner) }}</h3>
-        <div id="vehicle-markdown1" style="color:#000000;text-align:justify;">
-          <p>{{ vehicle.description }}</p>
-        </div>
+        <h1 style="color:#000000;font-weight:400;">{{ vehicle.name }}</h1>
+      </div>
+      <div class="item item-body">
+        <h2 style="color:#000000;">{{ vehicle.make + ' ' + vehicle.model + ' ' + vehicle.year }}</h2>
+      </div>
+
+      <div class="item item-divider">License Plate No</div>
+      <div class="item item-body">
+        <a class="item">{{ vehicle.license_plate_no }}</a>
+      </div>
+
+      <div class="item item-divider">Fuel Type</div>
+      <div class="item item-body">
+        <a class="item">{{ vehicle.fuel_one + (vehicle.fuel_two != null ? ' & ' + vehicle.fuel_two : '') }}</a>
+      </div>
+
+      <div class="item item-divider">Owner</div>
+      <div class="item item-body">
+        <a class="item">{{ (vehicle.owner == null ? 'Owned by you' : vehicle.owner) }}</a>
+      </div>
+
+      <div class="item item-divider">Description</div>
+      <div class="item item-body">
+        <a class="item"><p>{{ (vehicle.description != null ? vehicle.description : 'N/A') }}</p></a>
       </div>
     </div>
   </ion-content>

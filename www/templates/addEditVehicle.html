@@ -1,63 +1,61 @@
 <ion-view title="{{ (mode == 'ADD' ? 'Add' : 'Update') }} Vehicle" class="page">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <div class="list card">
-            <div class="item item-body">
-                <form class="list">
-                    <label class="item item-input" name="name">
-                        <span class="input-label">Name</span>
-                        <input type="text" placeholder="Enter a name" ng-model="vehicle.name">
-                    </label>
-                    <label class="item item-input" name="license_plate">
-                        <span class="input-label">License Plate</span>
-                        <input type="text" placeholder="Enter license plate" ng-model="vehicle.license_plate_no">
-                    </label>
-                    <label class="item item-input" name="description">
-                        <span class="input-label">Description</span><textarea placeholder="Enter a description" ng-model="vehicle.description"> </textarea>
-                    </label>
-                </form>
-            </div>
-        </div>
-        <div class="list card">
-            <div class="item item-divider">Fuel Details</div>
-            <div class="item item-body">
-                <form class="list">
-                    <ion-toggle toggle-class="toggle-positive" name="bi-fuel" ng-model="vehicle.bi_fuel">Bi-fuel Vehicle</ion-toggle>
-                    <label class="item item-select" name="fuel-one-type">
-                        <span class="input-label">Fuel One</span>
-                        <select ng-model="vehicle.fuel_one">
-                            <option>Petrol</option>
-                            <option>Diesel</option>
-                        </select>
-                    </label>
-                    <label class="item item-select" name="fuel-two-type" ng-hide="!vehicle.bi_fuel">
-                        <span class="input-label">Fuel Two</span>
-                        <select ng-model="vehicle.fuel_two">
-                          <option>Petrol</option>
-                          <option>Diesel</option>
-                        </select>
-                    </label>
-                </form>
-            </div>
-        </div>
-        <div class="list card">
-            <div class="item item-divider">Other</div>
-            <div class="item item-body">
-                <form class="list">
-                    <label class="item item-input" name="make">
-                        <span class="input-label">Make</span>
-                        <input type="text" placeholder="Enter the make" ng-model="vehicle.make">
-                    </label>
-                    <label class="item item-input" name="model">
-                        <span class="input-label">Model</span>
-                        <input type="text" placeholder="Enter the model" ng-model="vehicle.model">
-                    </label>
-                    <label class="item item-input" name="year">
-                        <span class="input-label">Year</span>
-                        <input type="number" placeholder="Enter the year" ng-model="vehicle.year">
-                    </label>
-                </form>
-            </div>
-        </div>
-        <button id="addVehicle-button12" class="button button-positive  button-block icon ion-android-add-circle" ng-click="addUpdateVehicle()"> {{ (mode == 'ADD' ? 'Add' : 'Update') }}</button>
-    </ion-content>
+  <ion-content overflow-scroll="true" padding="true">
+    <div class="list padding card">
+      <div class="item item-body">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Name</span>
+          <input type="text" placeholder="Enter a name" ng-model="vehicle.name">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">License Plate No</span>
+          <input type="text" placeholder="Enter license plate no" ng-model="vehicle.license_plate_no">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Description</span>
+          <textarea placeholder="Enter a description" ng-model="vehicle.description"> </textarea>
+        </label>
+      </div>
+    </div>
+
+    <div class="list padding card">
+      <div class="item item-divider">Fuel Details</div>
+      <div class="item item-body">
+        <ion-toggle toggle-class="toggle-positive" ng-model="vehicle.bi_fuel">Bi-fuel Vehicle</ion-toggle>
+        <label class="item item-select">
+          <span class="input-label">Fuel One</span>
+          <select ng-model="vehicle.fuel_one">
+            <option>Petrol</option>
+            <option>Diesel</option>
+          </select>
+        </label>
+        <label class="item item-select" ng-hide="!vehicle.bi_fuel">
+          <span class="input-label">Fuel Two</span>
+          <select ng-model="vehicle.fuel_two">
+            <option>Petrol</option>
+            <option>Diesel</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    <div class="list padding card">
+      <div class="item item-divider">Other</div>
+      <div class="item item-body">
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Make</span>
+          <input type="text" placeholder="Enter the make" ng-model="vehicle.make">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Model</span>
+          <input type="text" placeholder="Enter the model" ng-model="vehicle.model">
+        </label>
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Year</span>
+          <input type="number" placeholder="Enter the year" ng-model="vehicle.year">
+        </label>
+      </div>
+    </div>
+
+    <button class="button button-full button-bar-positive ink" ng-click="addUpdateVehicle()"><i ng-class="['icon', {'ion-android-add-circle': mode == 'ADD', 'ion-checkmark': mode == 'EDIT'}]"></i> {{ (mode == 'ADD' ? 'Add' : 'Update') }}</button>
+  </ion-content>
 </ion-view>

@@ -1,9 +1,20 @@
 angular.module('app.controllers')
 
-.controller('addEditVehicleCtrl', function($stateParams, $scope, $rootScope, $http, $cordovaToast, $ionicHistory, $state) {
+.controller('addEditVehicleCtrl', function($stateParams, $scope, $rootScope, $http, $cordovaToast, $ionicHistory, $state, ionicMaterialInk, ionicMaterialMotion) {
+  // Initializing variables
   $scope.mode = $stateParams.mode;
   $scope.vehicle = {};
+
+  // Initialization
   $scope.$on('$ionicView.enter', function() {
+    // Updating the view
+    $scope.showHeader();
+    $scope.isExpanded = false;
+    $scope.setExpanded(false);
+    $scope.setHeaderFab(false);
+    ionicMaterialInk.displayEffect();
+    ionicMaterialMotion.ripple();
+
     if($stateParams.mode == 'EDIT') {
       $scope.vehicle.name = $stateParams.name;
       $scope.vehicle.license_plate_no = $stateParams.license_plate_no;
@@ -21,6 +32,7 @@ angular.module('app.controllers')
       $scope.vehicle.year = parseInt($stateParams.year);
     }
   });
+
   $scope.addUpdateVehicle = function() {
     if ($scope.vehicle.name == null ||
       $scope.vehicle.license_plate_no == null ||
@@ -48,6 +60,7 @@ angular.module('app.controllers')
         if (response.data.status == 'SUCCESS') {
           $cordovaToast.showShortBottom('Vehicle ' + ($stateParams.mode == 'ADD' ? 'creation' : 'updating') + ' successful');
           $ionicHistory.backView().stateParams = { license_plate_no : $scope.vehicle.license_plate_no };
+          $ionicHistory.backView().stateId = $ionicHistory.backView().stateName + "_license_plate_no=" + $scope.vehicle.license_plate_no;
           $ionicHistory.backView().go();
         } else if (response.data.status == 'USER_NOT_LOGGED_IN') {
           $ionicHistory.nextViewOptions({
@@ -66,5 +79,5 @@ angular.module('app.controllers')
         $scope.hideLoadingOverlay();
       });
     }
-  }
+  };
 });
