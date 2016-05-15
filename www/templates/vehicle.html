@@ -1,12 +1,12 @@
 <ion-view title="Vehicle" class="page">
   <ion-content overflow-scroll="true" padding="true" class="has-header">
-    <div class="list padding card">
+    <div class="list padding card" ng-hide="loading">
       <div class="item item-body">
-        <h1 style="color:#000000;font-weight:400;">{{ vehicle.name }}</h1>
+        <h1 style="color:#000000; font-size: 2em; font-weight: 400;">{{ vehicle.name }}</h1>
+        <h2 style="color:#000000; font-size: 1.3em;">{{ vehicle.make + ' ' + vehicle.model + ' ' + vehicle.year }}</h2>
       </div>
-      <div class="item item-body">
-        <h2 style="color:#000000;">{{ vehicle.make + ' ' + vehicle.model + ' ' + vehicle.year }}</h2>
-      </div>
+
+      <button ui-sref="menu.drivers({ mode : vehicle.license_plate_no })" class="button button-full button-bar-positive ink"><i class="icon ion-key"></i> Add Driver</button>
 
       <div class="item item-divider">License Plate No</div>
       <div class="item item-body">

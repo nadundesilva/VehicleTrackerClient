@@ -11,6 +11,7 @@ angular.module('app.controllers')
     $scope.showHeader();
     $scope.isExpanded = false;
     $scope.setExpanded(false);
+    $scope.clearFabs(0, 0);
     $scope.setHeaderFab(false);
     ionicMaterialInk.displayEffect();
     ionicMaterialMotion.ripple();
@@ -18,7 +19,7 @@ angular.module('app.controllers')
     if($stateParams.mode == 'EDIT') {
       $scope.vehicle.name = $stateParams.name;
       $scope.vehicle.license_plate_no = $stateParams.license_plate_no;
-      $scope.vehicle.original_license_plate_no = $stateParams.license_plate_no;
+      $scope.original_license_plate_no = $stateParams.license_plate_no;
       $scope.vehicle.description = $stateParams.description;
       $scope.vehicle.fuel_one = $stateParams.fuel_one;
       if($stateParams.fuel_two != null) {
@@ -44,17 +45,15 @@ angular.module('app.controllers')
       $cordovaToast.showShortBottom('Name, license plate, fuel type, make, model and year are required');
     } else {
       $scope.showLoadingOverlay(($stateParams.mode == 'ADD' ? 'Creating' : 'Updating') + ' vehicle');
-      var method, url;
+      var method;
       if($stateParams.mode == 'ADD') {
         method = 'POST';
-        url = 'create';
       } else {
         method = 'PUT';
-        url = 'update';
       }
       $http({
         method : method,
-        url : $rootScope.MAIN_SERVER_URL + '/vehicle/' + url,
+        url : $rootScope.MAIN_SERVER_URL + '/vehicle/' + ($stateParams.mode == 'ADD' ? '' : $scope.original_license_plate_no + '/'),
         data : { vehicle: $scope.vehicle }
       }).then(function (response) {
         if (response.data.status == 'SUCCESS') {

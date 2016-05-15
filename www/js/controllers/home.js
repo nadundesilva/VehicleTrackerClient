@@ -7,7 +7,7 @@ angular.module('app.controllers')
     $scope.$parent.showHeader();
     $scope.isExpanded = false;
     $scope.setExpanded(false);
-    $scope.clearFabs(0);
+    $scope.clearFabs(0, 0);
     $scope.setHeaderFab(false);
     ionicMaterialInk.displayEffect();
     ionicMaterialMotion.ripple();

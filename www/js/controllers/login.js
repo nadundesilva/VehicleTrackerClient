@@ -11,7 +11,7 @@ angular.module('app.controllers')
     $timeout(function () {
       $scope.hideHeader();
     }, 0);
-    $scope.clearFabs(0);
+    $scope.clearFabs(0, 0);
     ionicMaterialInk.displayEffect();
   });
 

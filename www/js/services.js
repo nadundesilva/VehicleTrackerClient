@@ -1,10 +1,13 @@
 angular.module('app.services', [])
 
-.factory('BlankFactory', [function(){
+.service('sharedData', function() {
+  var vehicle = {};
 
-}])
+  this.getVehicleData = function () {
+    return vehicle;
+  };
 
-.service('BlankService', [function(){
-
-}]);
-
+  this.clearVehicleData = function () {
+    vehicle = {};
+  };
+});

@@ -1,6 +1,6 @@
 angular.module('app.controllers')
 
-.controller('vehiclesCtrl', function($scope, $rootScope, $http, $state, $ionicHistory, $cordovaToast, $timeout, $filter, ionicMaterialMotion, ionicMaterialInk) {
+.controller('vehiclesCtrl', function($scope, $rootScope, $http, $state, $ionicHistory, $cordovaToast, $timeout, ionicMaterialMotion, ionicMaterialInk) {
   // Initializing variables
   $scope.search_key = {};
 
@@ -10,7 +10,7 @@ angular.module('app.controllers')
     $scope.showHeader();
     $scope.isExpanded = false;
     $scope.setExpanded(true);
-    $scope.clearFabs(1);
+    $scope.clearFabs(0, 1);
     $scope.setHeaderFab(false);
     ionicMaterialInk.displayEffect();
     ionicMaterialMotion.ripple();
@@ -19,7 +19,7 @@ angular.module('app.controllers')
 
     // Loading vehicles
     $scope.showLoadingOverlay('Retrieving Vehicles');
-    $http.get($rootScope.MAIN_SERVER_URL + '/vehicle/get')
+    $http.get($rootScope.MAIN_SERVER_URL + '/vehicle/')
       .then(function (response) {
         if (response.data.status == 'SUCCESS') {
           $scope.owned_vehicles = response.data.owned_vehicles;

@@ -1,6 +1,6 @@
 angular.module('app.controllers')
 
-.controller('vehicleCtrl', function($stateParams, $scope, $rootScope, $http, $state, $ionicHistory, $cordovaToast, $cordovaPreferences, ionicMaterialInk, ionicMaterialMotion) {
+.controller('vehicleCtrl', function($stateParams, $scope, $rootScope, $http, $state, $ionicHistory, $cordovaToast, $cordovaPreferences, $timeout, ionicMaterialInk, ionicMaterialMotion, sharedData) {
   // Initializing variables
   $scope.mode = $stateParams.mode;
   $scope.vehicle = {};
@@ -11,13 +11,13 @@ angular.module('app.controllers')
     $scope.showHeader();
     $scope.isExpanded = false;
     $scope.setExpanded(true);
-    $scope.clearFabs(1);
+    $scope.clearFabs(1, 1);
     $scope.setHeaderFab(false);
     ionicMaterialInk.displayEffect();
     ionicMaterialMotion.ripple();
 
     $scope.showLoadingOverlay('Retrieving Information');
-    $http.get($rootScope.MAIN_SERVER_URL + '/vehicle/get/' + $stateParams.license_plate_no)
+    $http.get($rootScope.MAIN_SERVER_URL + '/vehicle/' + $stateParams.license_plate_no + '/')
       .then(function (response) {
         if (response.data.status == 'SUCCESS') {
           $scope.vehicle = response.data.vehicle;
@@ -27,6 +27,8 @@ angular.module('app.controllers')
                 $scope.vehicle.owner = null;
               }
             });
+          var vehicleSharedData = sharedData.getVehicleData();
+          vehicleSharedData.vehicle = $scope.vehicle;
         } else if (response.data.status == 'USER_NOT_LOGGED_IN') {
           $ionicHistory.nextViewOptions({
             disableBack: true
@@ -41,5 +43,9 @@ angular.module('app.controllers')
         $cordovaToast.showShortBottom('Connection error');
         $scope.hideLoadingOverlay();
       });
+  });
+
+  $scope.$on('$ionicView.leave', function() {
+    sharedData.clearVehicleData();
   });
 });

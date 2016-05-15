@@ -1,6 +1,6 @@
 <ion-view title="{{ (mode == 'ADD' ? 'Add' : 'Update') }} Vehicle" class="page">
   <ion-content overflow-scroll="true" padding="true">
-    <div class="list padding card">
+    <div class="list padding card" ng-hide="loading">
       <div class="item item-body">
         <label class="item item-input item-floating-label">
           <span class="input-label">Name</span>
@@ -17,7 +17,7 @@
       </div>
     </div>
 
-    <div class="list padding card">
+    <div class="list padding card" ng-hide="loading">
       <div class="item item-divider">Fuel Details</div>
       <div class="item item-body">
         <ion-toggle toggle-class="toggle-positive" ng-model="vehicle.bi_fuel">Bi-fuel Vehicle</ion-toggle>
@@ -38,7 +38,7 @@
       </div>
     </div>
 
-    <div class="list padding card">
+    <div class="list padding card" ng-hide="loading">
       <div class="item item-divider">Other</div>
       <div class="item item-body">
         <label class="item item-input item-floating-label">
@@ -56,6 +56,6 @@
       </div>
     </div>
 
-    <button class="button button-full button-bar-positive ink" ng-click="addUpdateVehicle()"><i ng-class="['icon', {'ion-android-add-circle': mode == 'ADD', 'ion-checkmark': mode == 'EDIT'}]"></i> {{ (mode == 'ADD' ? 'Add' : 'Update') }}</button>
+    <button class="button button-full button-bar-positive ink" ng-hide="loading" ng-click="addUpdateVehicle()"><i ng-class="['icon', {'ion-android-add-circle': mode == 'ADD', 'ion-checkmark': mode == 'EDIT'}]"></i> {{ (mode == 'ADD' ? 'Add' : 'Update') }}</button>
   </ion-content>
 </ion-view>

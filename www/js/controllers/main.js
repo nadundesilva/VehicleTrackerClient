@@ -1,6 +1,9 @@
 angular.module('app.controllers', ['ngCordova'])
 
 .controller('mainCtrl', function($scope, $ionicLoading) {
+  // Initializing variables
+  $scope.loading = false;
+  
   $scope.showLoadingOverlay = function(loadingText) {
     if (loadingText == null) {
       loadingText = 'Loading';
@@ -9,10 +12,12 @@ angular.module('app.controllers', ['ngCordova'])
     $ionicLoading.show({
       template: '<p>' + loadingText + '</p><ion-spinner icon="android"></ion-spinner>'
     });
+    $scope.loading = true;
   };
 
   $scope.hideLoadingOverlay = function(){
     $ionicLoading.hide();
+    $scope.loading = false;
   };
 
   $scope.hideNavBar = function() {
@@ -73,10 +78,18 @@ angular.module('app.controllers', ['ngCordova'])
     $scope.hasHeader();
   };
 
-  $scope.clearFabs = function(currentButtonCount) {
-    var fabs = document.getElementsByClassName('button-fab');
-    if (fabs.length && fabs.length > currentButtonCount) {
-      fabs[fabs.length - currentButtonCount - 1].remove();
+  $scope.clearFabs = function(leftFabsCount, rightFabsCount) {
+    var fabs = document.getElementsByClassName('button-fab button-fab-bottom-left');
+    if (fabs.length) {
+      for (var i = 0; i < fabs.length - leftFabsCount; i++) {
+        fabs[i].remove();
+      }
+    }
+    fabs = document.getElementsByClassName('button-fab button-fab-bottom-right');
+    if (fabs.length) {
+      for (var i = 0; i < fabs.length - rightFabsCount; i++) {
+        fabs[i].remove();
+      }
     }
   };
 });
