@@ -31,6 +31,16 @@ angular.module('app.controllers')
       $scope.vehicle.make = $stateParams.make;
       $scope.vehicle.model = $stateParams.model;
       $scope.vehicle.year = parseInt($stateParams.year);
+    } else {
+      $scope.vehicle.name = null;
+      $scope.vehicle.license_plate_no = null;
+      $scope.vehicle.description = null;
+      $scope.vehicle.bi_fuel = false;
+      $scope.vehicle.fuel_one = null;
+      $scope.vehicle.fuel_two = null;
+      $scope.vehicle.make = null;
+      $scope.vehicle.model = null;
+      $scope.vehicle.year = null;
     }
   });
 
@@ -70,6 +80,7 @@ angular.module('app.controllers')
         } else if (response.data.status == 'VEHICLE_DUPLICATE_LICENSE_PLATE_NO') {
           $cordovaToast.showShortBottom('License plate number already exists');
         } else {
+          alert(response.data.status);
           $cordovaToast.showShortBottom('Unknown error');
         }
         $scope.hideLoadingOverlay();

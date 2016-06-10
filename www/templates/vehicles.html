@@ -6,8 +6,8 @@
         <input type="search" placeholder="Enter vehicle name" ng-model="search_key.name" ng-keyup="triggerAnimation();">
       </label>
       <span ng-hide="owned_vehicles.length != 0 && managed_vehicles.length != 0 || loading">
-        <a ui-sref="app.friends" class="item item-avatar item-icon-right">
-          <h2>You do not have any vehicles</h2>
+        <a ui-sref="app.friends" class="item">
+          <h3>You do not have any vehicles</h3>
         </a>
       </span>
       <span ng-repeat="vehicle in owned_vehicles | filter: search_key" ng-hide="loading">

@@ -1,0 +1,27 @@
+<ion-view view-title="Add Drivers" align-title="left" class="page">
+  <ion-content overflow-scroll="true" padding="true" class="has-header">
+    <div class="list animate-fade-slide-in-right animate-ripple">
+      <label class="item item-input" name="search">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="search" placeholder="Enter username" ng-model="search_key.name" ng-change="search();" ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }">
+      </label>
+      <span ng-show="searching">
+        <a ui-sref="app.friends" class="item">
+          <h3>Searching for users<ion-spinner icon="android"></ion-spinner></h3>
+        </a>
+      </span>
+      <span ng-hide="users.length != 0 || loading">
+        <a ui-sref="app.friends" class="item">
+          <h3>User not found</h3>
+        </a>
+      </span>
+      <span ng-repeat="user in users" ng-hide="loading">
+        <a class="item item-avatar item-icon-right">
+          <img src="img/user-icon.png">
+          <h2>{{ user.first_name + (user.last_name != null ? ' ' + user.last_name : '') }}</h2>
+          <p>Username : {{ user.username }}</p>
+        </a>
+      </span>
+    </div>
+  </ion-content>
+</ion-view>

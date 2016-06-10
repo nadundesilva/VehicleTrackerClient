@@ -108,9 +108,10 @@ angular.module('app.routes', [])
         controller: 'vehicleCtrl'
       },
       'fabLeftContent': {
-        template: '<button id="fab-vehicle-delete" class="button button-fab button-fab-bottom-left button-assertive-900 spin"  ng-click="deleteVehicle()"><i class="icon ion-android-cancel" ng-hide=\'mode == "MANAGED"\'></i></button>',
+        template: '<button id="fab-vehicle-delete" class="button button-fab button-fab-bottom-left button-assertive-900 spin" ng-hide=\'mode == "MANAGED"\' ng-click="deleteVehicle()"><i class="icon ion-android-cancel" ng-hide=\'mode == "MANAGED"\'></i></button>',
         controller: function($stateParams, $scope, $rootScope, $http, $state, $cordovaToast, $ionicHistory, $timeout) {
           // Initializing variables
+          $scope.mode = $stateParams.mode;
           $scope.license_plate_no = $stateParams.license_plate_no;
 
           $timeout(function () {
@@ -142,8 +143,11 @@ angular.module('app.routes', [])
         }
       },
       'fabRightContent': {
-        template: '<button id="fab-vehicle-edit" class="button button-fab button-fab-bottom-right button-positive-900 spin"  ng-hide=\'mode == "MANAGED"\' ng-click="goToUpdateView();"><i class="icon ion-edit"></i></button>',
-        controller: function ($timeout, sharedData, $scope, $state) {
+        template: '<button id="fab-vehicle-edit" class="button button-fab button-fab-bottom-right button-positive-900 spin" ng-hide=\'mode == "MANAGED"\' ng-click="goToUpdateView();"><i class="icon ion-edit"></i></button>',
+        controller: function ($stateParams, $timeout, sharedData, $scope, $state) {
+          // Initializing variables
+          $scope.mode = $stateParams.mode;
+
           $timeout(function () {
             document.getElementById('fab-vehicle-edit').classList.toggle('on');
           }, 500);
@@ -159,11 +163,36 @@ angular.module('app.routes', [])
   })
 
   .state('menu.drivers', {
-    url: '/drivers/:license_plate_no',
+    url: '/drivers/:mode?license_plate_no',
     views: {
       'menuContent': {
         templateUrl: 'templates/drivers.html',
         controller: 'driversCtrl'
+      },
+      'fabLeftContent': {
+        template: ''
+      },
+      'fabRightContent': {
+        template: '<button ui-sref=\'menu.addDriver({ license_plate_no : license_plate_no })\' id="fab-vehicles-add" class="button button-fab button-fab-bottom-right button-balanced-900 spin" ng-show="owned"><i class="icon ion-plus"></i></button>',
+        controller: function($scope, $timeout, $stateParams) {
+          // Initializing variables
+          $scope.license_plate_no = $stateParams.license_plate_no;
+          $scope.owned = ($stateParams.mode == 'OWNED');
+
+          $timeout(function () {
+            document.getElementById('fab-vehicles-add').classList.toggle('on');
+          }, 200);
+        }
+      }
+    }
+  })
+
+  .state('menu.addDriver', {
+    url: '/add-driver/:license_plate_no',
+    views: {
+      'menuContent': {
+        templateUrl: 'templates/addDriver.html',
+        controller: 'addDriverCtrl'
       },
       'fabLeftContent': {
         template: ''

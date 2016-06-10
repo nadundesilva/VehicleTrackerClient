@@ -1,8 +1,9 @@
 angular.module('app.controllers')
 
-.controller('vehiclesCtrl', function($scope, $rootScope, $http, $state, $ionicHistory, $cordovaToast, $timeout, ionicMaterialMotion, ionicMaterialInk) {
+.controller('addDriverCtrl', function($scope, $rootScope, $stateParams, $http, $state, $ionicHistory, $cordovaToast, $timeout, $filter, ionicMaterialMotion, ionicMaterialInk) {
   // Initializing variables
   $scope.search_key = {};
+  $scope.searching = false;
 
   // Initialization
   $scope.$on('$ionicView.beforeEnter', function() {
@@ -10,20 +11,21 @@ angular.module('app.controllers')
     $scope.showHeader();
     $scope.isExpanded = false;
     $scope.setExpanded(true);
-    $scope.clearFabs(0, 1);
+    $scope.clearFabs(0, 0);
     $scope.setHeaderFab(false);
     ionicMaterialInk.displayEffect();
     ionicMaterialMotion.ripple();
 
     $scope.triggerAnimation();
+  });
 
+  $scope.search = function() {
     // Loading vehicles
-    $scope.showLoadingOverlay('Retrieving Vehicles');
-    $http.get($rootScope.MAIN_SERVER_URL + '/vehicle/')
+    $scope.searching = true;
+    $http.get($rootScope.MAIN_SERVER_URL + '/vehicle/' + $stateParams.license_plate_no + '/driver/user/' + $scope.search_key.name + '/')
       .then(function (response) {
         if (response.data.status == 'SUCCESS') {
-          $scope.owned_vehicles = response.data.owned_vehicles;
-          $scope.managed_vehicles = response.data.managed_vehicles;
+          $scope.users = response.data.users;
           $scope.triggerAnimation();
         } else if (response.data.status == 'USER_NOT_LOGGED_IN') {
           $ionicHistory.nextViewOptions({
@@ -34,12 +36,13 @@ angular.module('app.controllers')
         } else {
           $cordovaToast.showShortBottom('Unknown error');
         }
-        $scope.hideLoadingOverlay();
+        $scope.searching = false;
       }, function (response) {
         $cordovaToast.showShortBottom('Connection error');
-        $scope.hideLoadingOverlay();
+        console.log(response.data.message);
+        $scope.searching = false;
       });
-  });
+  };
 
   $scope.triggerAnimation = function () {
     // Set Motion
