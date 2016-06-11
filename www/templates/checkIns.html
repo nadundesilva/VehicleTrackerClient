@@ -1,37 +1,36 @@
-<ion-view title="Check-ins" class="page">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <a ui-sref="menu.addCheckIn" id="checkIns-button7" class="button button-calm  button-block icon ion-android-add-circle">Add Check-in</a>
-        <div class="list card">
-            <div class="item item-body">
-                <form class="list">
-                    <label class="item item-select" name="vehicle">
-                        <span class="input-label">Vehicle</span>
-                        <select>
-                            <option>N/A</option>
-                        </select>
-                    </label>
-                </form>
-            </div>
+<ion-view title="Check Ins" align-title="left" class="page">
+  <ion-content overflow-scroll="true" padding="true">
+    <div class="list animate-fade-slide-in-right animate-ripple">
+      <div class="card">
+        <div class="item item-body">
+          <label class="item item-select">
+            <span class="input-label">Vehicle</span>
+            <select ng-model="selected_vehicle.license_plate_no" ng-change="loadCheckIns();">
+              <option ng-repeat="vehicle in vehicles" value="{{ vehicle.license_plate_no }}">{{ vehicle.name }}</option>
+            </select>
+          </label>
         </div>
-        <div class="list card">
-            <div class="item item-divider">Map</div>
-            <div class="item item-body"></div>
-        </div>
-        <div class="list card">
-            <div class="item item-divider">Check-ins List</div>
-            <div class="item item-body">
-                <ion-list>
-                    <label class="item item-input" name="search">
-                        <i class="icon ion-search placeholder-icon"></i>
-                        <input type="search" placeholder="Enter a date">
-                    </label>
-                    <ion-item class="item-thumbnail-left" ui-sref="menu.checkIn">
-                        <img src="img/location-icon.png">
-                        <h2>Time</h2>
-                        <p>Click to view on map</p>
-                    </ion-item>
-                </ion-list>
-            </div>
-        </div>
-    </ion-content>
+      </div>
+
+      <span ng-show="selected_vehicle.license_plate_no != null">
+        <label class="item item-input" name="search">
+          <i class="icon ion-search placeholder-icon"></i>
+          <input type="search" placeholder="Enter check in name" ng-model="search_key.name" ng-keyup="triggerAnimation();">
+        </label>
+        <span ng-hide="check_ins.length != 0 || loading">
+          <a class="item">
+            <h3>There are no check ins assigned</h3>
+          </a>
+        </span>
+        <span ng-repeat="check_in in check_ins | filter: search_key" ng-hide="loading">
+          <a ui-sref="menu.checkIn({ license_plate_no : selected_vehicle.license_plate_no, check_in_id : check_in.id })" class="item item-avatar item-icon-right">
+            <img src="img/check-in-icon.png">
+            <h2>{{ check_in.timestamp | date }}</h2>
+            <p>{{ check_in.description }}<br>
+            Created by : {{ check_in.creator }}</p>
+          </a>
+        </span>
+      </span>
+    </div>
+  </ion-content>
 </ion-view>

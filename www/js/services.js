@@ -1,13 +1,13 @@
 angular.module('app.services', [])
 
 .service('sharedData', function() {
-  var vehicle = {};
+  var data = {};
 
-  this.getVehicleData = function () {
-    return vehicle;
+  this.getData = function () {
+    return data;
   };
 
-  this.clearVehicleData = function () {
-    vehicle = {};
+  this.clearData = function () {
+    data = {};
   };
 });

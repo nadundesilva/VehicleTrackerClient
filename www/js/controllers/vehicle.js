@@ -1,12 +1,12 @@
 angular.module('app.controllers')
 
 .controller('vehicleCtrl', function($stateParams, $scope, $rootScope, $http, $state, $ionicHistory, $cordovaToast, $cordovaPreferences, $timeout, ionicMaterialInk, ionicMaterialMotion, sharedData) {
-  // Initializing variables
-  $scope.mode = $stateParams.mode;
-  $scope.vehicle = {};
-
   // Initialization
   $scope.$on('$ionicView.enter', function() {
+    // Initializing variables
+    $scope.mode = $stateParams.mode;
+    $scope.vehicle = {};
+
     // Updating the view
     $scope.showHeader();
     $scope.isExpanded = false;
@@ -21,13 +21,10 @@ angular.module('app.controllers')
       .then(function (response) {
         if (response.data.status == 'SUCCESS') {
           $scope.vehicle = response.data.vehicle;
-          $cordovaPreferences.fetch($rootScope.USERNAME_KEY)
-            .success(function (value) {
-              if(value == $scope.vehicle.owner) {
-                $scope.vehicle.owner = null;
-              }
-            });
-          var vehicleSharedData = sharedData.getVehicleData();
+          if($scope.mode == "OWNED") {
+            $scope.vehicle.owner = null;
+          }
+          var vehicleSharedData = sharedData.getData();
           vehicleSharedData.vehicle = $scope.vehicle;
         } else if (response.data.status == 'USER_NOT_LOGGED_IN') {
           $ionicHistory.nextViewOptions({
@@ -46,6 +43,6 @@ angular.module('app.controllers')
   });
 
   $scope.$on('$ionicView.leave', function() {
-    sharedData.clearVehicleData();
+    sharedData.clearData();
   });
 });

@@ -1,6 +1,6 @@
 angular.module('app.controllers')
 
-.controller('addFuelFillUpCtrl', function($scope, ionicMaterialInk, ionicMaterialMotion) {
+.controller('addEditFuelFillUpCtrl', function($scope, ionicMaterialInk, ionicMaterialMotion) {
   // Initialization
   $scope.$on('$ionicView.enter', function() {
     // Updating the view

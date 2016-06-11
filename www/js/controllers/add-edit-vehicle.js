@@ -1,12 +1,12 @@
 angular.module('app.controllers')
 
 .controller('addEditVehicleCtrl', function($stateParams, $scope, $rootScope, $http, $cordovaToast, $ionicHistory, $state, ionicMaterialInk, ionicMaterialMotion) {
-  // Initializing variables
-  $scope.mode = $stateParams.mode;
-  $scope.vehicle = {};
-
   // Initialization
   $scope.$on('$ionicView.enter', function() {
+    // Initializing variables
+    $scope.mode = $stateParams.mode;
+    $scope.vehicle = {};
+
     // Updating the view
     $scope.showHeader();
     $scope.isExpanded = false;
@@ -54,7 +54,7 @@ angular.module('app.controllers')
       $scope.vehicle.year == null) {
       $cordovaToast.showShortBottom('Name, license plate, fuel type, make, model and year are required');
     } else {
-      $scope.showLoadingOverlay(($stateParams.mode == 'ADD' ? 'Creating' : 'Updating') + ' vehicle');
+      $scope.showLoadingOverlay(($stateParams.mode == 'ADD' ? 'Creating' : 'Updating') + ' Vehicle');
       var method;
       if($stateParams.mode == 'ADD') {
         method = 'POST';
@@ -67,9 +67,11 @@ angular.module('app.controllers')
         data : { vehicle: $scope.vehicle }
       }).then(function (response) {
         if (response.data.status == 'SUCCESS') {
-          $cordovaToast.showShortBottom('Vehicle ' + ($stateParams.mode == 'ADD' ? 'creation' : 'updating') + ' successful');
-          $ionicHistory.backView().stateParams = { license_plate_no : $scope.vehicle.license_plate_no };
-          $ionicHistory.backView().stateId = $ionicHistory.backView().stateName + "_license_plate_no=" + $scope.vehicle.license_plate_no;
+          $cordovaToast.showShortBottom('Vehicle ' + ($stateParams.mode == 'ADD' ? 'creation' : 'update') + ' successful');
+          if($stateParams.mode == 'EDIT') {
+            $ionicHistory.backView().stateParams = {license_plate_no: $scope.vehicle.license_plate_no};
+            $ionicHistory.backView().stateId = $ionicHistory.backView().stateName + "_license_plate_no=" + $scope.vehicle.license_plate_no;
+          }
           $ionicHistory.backView().go();
         } else if (response.data.status == 'USER_NOT_LOGGED_IN') {
           $ionicHistory.nextViewOptions({

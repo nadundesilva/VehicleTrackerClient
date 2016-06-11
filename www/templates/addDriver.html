@@ -6,12 +6,12 @@
         <input type="search" placeholder="Enter username" ng-model="search_key.name" ng-change="search();" ng-model-options="{ updateOn: 'default blur', debounce: { default: 1000, blur: 0 } }">
       </label>
       <span ng-show="searching">
-        <a ui-sref="app.friends" class="item">
+        <a class="item">
           <h3>Searching for users<ion-spinner icon="android"></ion-spinner></h3>
         </a>
       </span>
       <span ng-hide="users.length != 0 || loading">
-        <a ui-sref="app.friends" class="item">
+        <a class="item">
           <h3>User not found</h3>
         </a>
       </span>

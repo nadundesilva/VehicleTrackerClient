@@ -37,7 +37,7 @@ angular.module('app', ['ionic', 'app.controllers', 'app.routes', 'app.services',
   $rootScope.PASSWORD_KEY = 'password';
   $rootScope.ONLINE_MODE_KEY = 'online_mode';
 
-  $rootScope.MAIN_SERVER_URL = 'http://10.0.2.2/VehicleTracker/web';
-  // $rootScope.MAIN_SERVER_URL = 'http://192.168.1.3/VehicleTracker/web';
+  // $rootScope.MAIN_SERVER_URL = 'http://10.0.2.2/VehicleTracker/web';
+  $rootScope.MAIN_SERVER_URL = 'http://192.168.1.4/VehicleTracker/web';
   // $rootScope.MAIN_SERVER_URL = 'https://nadundesilva-vehicle-tracker.herokuapp.com';
 });

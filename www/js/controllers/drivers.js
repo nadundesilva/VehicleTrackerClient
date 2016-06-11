@@ -1,11 +1,11 @@
 angular.module('app.controllers')
 
 .controller('driversCtrl', function($scope, $rootScope, $stateParams, $http, $state, $ionicHistory, $cordovaToast, $timeout, $filter, ionicMaterialMotion, ionicMaterialInk) {
-  // Initializing variables
-  $scope.search_key = {};
-
   // Initialization
   $scope.$on('$ionicView.beforeEnter', function() {
+    // Initializing variables
+    $scope.search_key = {};
+
     // Updating the view
     $scope.showHeader();
     $scope.isExpanded = false;
@@ -30,6 +30,7 @@ angular.module('app.controllers')
           $cordovaToast.showShortBottom('You have to login first');
           $state.go('menu.home', {}, {location: "replace", reload: true});
         } else {
+          console.log(response.data.status);
           $cordovaToast.showShortBottom('Unknown error');
         }
         $scope.hideLoadingOverlay();

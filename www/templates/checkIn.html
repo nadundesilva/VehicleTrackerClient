@@ -1,29 +1,31 @@
-<ion-view title="Check-In" class="page">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <a ui-sref="menu.addCheckIn" id="checkIn-button20" class="button button-positive  button-block icon ion-edit">Edit</a>
-        <button id="checkIn-button21" class="button button-assertive  button-block icon ion-android-cancel">Remove</button>
-        <div class="list card">
-            <div class="item item-divider">Map</div>
-            <div class="item item-body"></div>
-        </div>
-        <div class="list card">
-            <div class="item item-body">
-                <h2 id="checkIn-heading6" style="color:#000000;">Timestamp</h2>
-                <div id="checkIn-markdown3" style="color:#000000;text-align:justify;">
-                    <p>Timestamp value</p>
-                </div>
-                <h2 id="checkIn-heading13" style="color:#000000;">Vehicle</h2>
-                <div id="checkIn-markdown8" style="color:#000000;text-align:justify;">
-                    <p>Vehicle name</p>
-                </div>
-                <h2 id="checkIn-heading14" style="color:#000000;">Created By</h2>
-                <div id="checkIn-markdown9" style="color:#000000;text-align:justify;">
-                    <p>created by user</p>
-                </div>
-                <div id="checkIn-markdown7" style="color:#000000;">
-                    <p>Description</p>
-                </div>
-            </div>
-        </div>
-    </ion-content>
+<ion-view title="Check In" class="page">
+  <link href="css/map.css" rel="stylesheet">
+  <ion-content overflow-scroll="true" padding="true" class="has-header">
+    <div class="list card">
+      <div class="item item-divider">Map</div>
+      <div class="item item-body">
+          <div id="map" data-tap-disabled="true"></div>
+      </div>
+
+      <div class="item item-divider">Timestamp</div>
+      <div class="item item-body">
+        <a class="item">{{ check_in.timestamp | date:'dd-MM-yyyy HH:mm:ss' }}</a>
+      </div>
+
+      <div class="item item-divider">Vehicle</div>
+      <div class="item item-body">
+        <a class="item">{{ check_in.vehicle }}</a>
+      </div>
+
+      <div class="item item-divider">Created By</div>
+      <div class="item item-body">
+        <a class="item">{{ (check_in.creator == null ? 'Owned by you' : check_in.creator) }}</a>
+      </div>
+
+      <div class="item item-divider">Description</div>
+      <div class="item item-body">
+        <a class="item">{{ check_in.description }}</a>
+      </div>
+    </div>
+  </ion-content>
 </ion-view>

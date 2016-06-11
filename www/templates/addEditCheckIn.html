@@ -1,0 +1,37 @@
+<ion-view title="{{ (mode == 'ADD' ? 'Add' : 'Update') }} Check In" class="page">
+  <link href="css/map.css" rel="stylesheet">
+  <ion-content overflow-scroll="true" padding="true" class="has-header">
+    <div class="list card" ng-hide="loading">
+      <div class="item item-divider">Map</div>
+      <div class="item item-body" ng-show="location_detected">
+        <div id="map" data-tap-disabled="true"></div>
+        <span ng-hide="location_detected || location_error">
+          <a class="item">
+            <h3>Searching for your location</h3>
+          </a>
+        </span>
+        <span ng-show="location_error && !location_detected">
+          <a class="item">
+            <h3>Cannot detect your location</h3>
+          </a>
+        </span>
+      </div>
+
+      <div class="item item-body">
+        <label class="item item-select" name="vehicle">
+          <span class="input-label">Vehicle</span>
+          <select ng-model="selected_vehicle.license_plate_no">
+            <option ng-repeat="vehicle in vehicles" value="{{ vehicle.license_plate_no }}">{{ vehicle.name }}</option>
+          </select>
+        </label>
+
+        <label class="item item-input item-floating-label">
+          <span class="input-label">Description</span>
+          <textarea placeholder="Enter a description" ng-model="check_in.description"> </textarea>
+        </label>
+      </div>
+    </div>
+
+    <button class="button button-full button-bar-positive ink" ng-hide="loading" ng-click="addUpdateCheckIn()" ng-hide="!location_detected || location_error"><i ng-class="['icon', {'ion-android-add-circle': mode == 'ADD', 'ion-checkmark': mode == 'EDIT'}]"></i> {{ (mode == 'ADD' ? 'Add' : 'Update') }}</button>
+  </ion-content>
+</ion-view>
