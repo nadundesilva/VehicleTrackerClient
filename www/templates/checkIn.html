@@ -1,25 +1,26 @@
-<ion-view title="Check In" class="page">
-  <link href="css/map.css" rel="stylesheet">
-  <ion-content overflow-scroll="true" padding="true" class="has-header">
+<ion-view title="Check In" align-title="left" class="page">
+  <ion-content overflow-scroll="true" padding="true">
     <div class="list card">
-      <div class="item item-divider">Map</div>
+      <div class="item item-divider">Location</div>
       <div class="item item-body">
-          <div id="map" data-tap-disabled="true"></div>
+          <div id="check-in-map" class="map" data-tap-disabled="true"></div>
       </div>
 
-      <div class="item item-divider">Timestamp</div>
+      <div class="item item-divider">Time</div>
       <div class="item item-body">
-        <a class="item">{{ check_in.timestamp | date:'dd-MM-yyyy HH:mm:ss' }}</a>
+        <a class="item">{{ check_in.timestamp | date:'dd-MM-yyyy' }}</a>
+        <a class="item">{{ check_in.timestamp | date:'HH:mm:ss' }}</a>
       </div>
 
       <div class="item item-divider">Vehicle</div>
       <div class="item item-body">
-        <a class="item">{{ check_in.vehicle }}</a>
+        <a class="item">{{ check_in.vehicle_name }}</a>
+        <a class="item">{{ check_in.vehicle_license_plate_no }}</a>
       </div>
 
       <div class="item item-divider">Created By</div>
       <div class="item item-body">
-        <a class="item">{{ (check_in.creator == null ? 'Owned by you' : check_in.creator) }}</a>
+        <a class="item">{{ (check_in.creator == null ? 'Created by you' : check_in.creator) }}</a>
       </div>
 
       <div class="item item-divider">Description</div>

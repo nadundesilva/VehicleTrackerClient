@@ -1,29 +1,53 @@
-<ion-view title="Add Fuel Fill-up" class="page">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <div class="list card">
-            <div class="item item-body">
-                <form class="list">
-                    <label class="item item-select" name="vehicle">
-                        <span class="input-label">Vehicle</span>
-                        <select>
-                            <option>N/A</option>
-                        </select>
-                    </label>
-                    <label class="item item-input" name="mileage">
-                        <span class="input-label">Odometer</span>
-                        <input type="text" placeholder="Enter mileage reading">
-                    </label>
-                    <label class="item item-input" name="litres">
-                        <span class="input-label">Litres</span>
-                        <input type="text" placeholder="Enter number of litres">
-                    </label>
-                    <label class="item item-input" name="price">
-                        <span class="input-label">Total Price</span>
-                        <input type="text" placeholder="Enter the price paid">
-                    </label>
-                </form>
-            </div>
+<ion-view title="{{ (mode == 'ADD' ? 'Add' : 'Update') }} Fuel Fill Up" align-title="left" class="page">
+  <ion-content overflow-scroll="true" padding="true">
+    <div class="list card" ng-hide="loading">
+      <div class="item item-divider">Station Location</div>
+      <div class="item item-body" ng-show="mode == 'ADD'">
+        <div id="add-edit-fuel-fill-up-map" class="map" data-tap-disabled="true"></div>
+        <span ng-hide="location_detected || location_error || mode == 'EDIT'">
+          <a class="item">
+            <h3>Searching for your location</h3>
+          </a>
+        </span>
+        <span ng-show="mode == 'ADD' && (location_error && !location_detected)">
+          <a class="item">
+            <h3>Cannot detect your location</h3>
+          </a>
+        </span>
+      </div>
+
+      <span ng-show="mode == 'EDIT'">
+        <div class="item item-divider">Vehicle</div>
+        <div class="item item-body">
+          <a class="item">{{ selected_vehicle.license_plate_no }}</a>
         </div>
-        <button id="addFuelFillUp-button9" class="button button-positive  button-block icon ion-android-add-circle">Add</button>
-    </ion-content>
+      </span>
+
+      <div class="item item-body">
+        <label class="item item-select" ng-show="mode == 'ADD'">
+          <span class="input-label">Vehicle</span>
+          <select ng-model="selected_vehicle.license_plate_no">
+            <option ng-repeat="vehicle in vehicles" value="{{ vehicle.license_plate_no }}">{{ vehicle.name }}</option>
+          </select>
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Odo Meter Reading</span>
+          <input type="number" placeholder="Enter reading" ng-model="fuel_fill_up.odo_meter_reading">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Litres</span>
+          <input type="number" placeholder="Enter litres" ng-model="fuel_fill_up.litres">
+        </label>
+
+        <label class="item item-input">
+          <span class="input-label">Price</span>
+          <input type="number" placeholder="Enter price" ng-model="fuel_fill_up.price">
+        </label>
+      </div>
+    </div>
+
+    <button class="button button-full button-bar-positive ink" ng-hide="(mode == 'ADD' && (!location_detected || location_error)) || loading" ng-click="addUpdateFuelFillUp()"><i ng-class="['icon', {'ion-android-add-circle': mode == 'ADD', 'ion-checkmark': mode == 'EDIT'}]"></i> {{ (mode == 'ADD' ? 'Add' : 'Update') }}</button>
+  </ion-content>
 </ion-view>

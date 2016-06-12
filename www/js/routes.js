@@ -332,7 +332,7 @@ angular.module('app.routes', [])
   })
 
   .state('menu.addEditFuelFillUp', {
-    url: '/add-edit-fill-up/:mode?license_plate_no&fuel_fill_up_id&odo_meter_reading&litres&price',
+    url: '/add-edit-fill-up/:mode?license_plate_no&fuel_fill_up_id&odo_meter_reading&litres&price&station_latitude&station_longitude',
     views: {
       'menuContent': {
         templateUrl: 'templates/addEditFuelFillUp.html',
@@ -367,7 +367,7 @@ angular.module('app.routes', [])
           }, 200);
 
           $scope.deleteFuelFillUp = function() {
-            $scope.showLoadingOverlay('Removing Check In');
+            $scope.showLoadingOverlay('Removing Fuel Fill Up');
             $http.delete($rootScope.MAIN_SERVER_URL + '/vehicle/' + $scope.license_plate_no + '/fuel-fill-up/' + $scope.fuel_fill_up_id + '/')
               .then(function (response) {
                 if (response.data.status == 'SUCCESS') {
@@ -403,7 +403,7 @@ angular.module('app.routes', [])
           $scope.goToUpdateView = function () {
             var fuelFillUpSharedData = sharedData.getData();
             var fuelFillUp = fuelFillUpSharedData.fuel_fill_up;
-            $state.go('menu.addEditFuelFillUp', { mode : "EDIT", license_plate_no : fuelFillUp.license_plate_no, fuel_fill_up_id : fuelFillUp.id, odo_meter_reading : fuelFillUp.odo_meter_reading, litres : fuelFillUp.litres, price : fuelFillUp.price });
+            $state.go('menu.addEditFuelFillUp', { mode : "EDIT", license_plate_no : fuelFillUp.license_plate_no, fuel_fill_up_id : fuelFillUp.id, odo_meter_reading : fuelFillUp.odo_meter_reading, litres : fuelFillUp.litres, price : fuelFillUp.price, station_latitude : fuelFillUp.station_latitude, station_longitude : fuelFillUp.station_longitude });
           };
         }
       }
@@ -411,7 +411,7 @@ angular.module('app.routes', [])
   })
 
   .state('menu.miscellaneousCosts', {
-    url: '/misc-costs',
+    url: '/misc-costs/:license_plate_no',
     views: {
       'menuContent': {
         templateUrl: 'templates/miscellaneousCosts.html',
@@ -421,17 +421,26 @@ angular.module('app.routes', [])
         template: ''
       },
       'fabRightContent': {
-        template: ''
+        template: '<button ui-sref=\'menu.addMiscellaneousCost({ mode : "ADD", license_plate_no : license_plate_no })\' id="fab-misc-costs-add" class="button button-fab button-fab-bottom-right button-balanced-900 spin"><i class="icon ion-plus"></i></button>',
+        controller: function($scope, $timeout, $stateParams) {
+          // Initializing variables
+          $scope.license_plate_no = $stateParams.license_plate_no;
+          $scope.misc_cost_id = $stateParams.misc_cost_id;
+
+          $timeout(function () {
+            document.getElementById('fab-misc-costs-add').classList.toggle('on');
+          }, 200);
+        }
       }
     }
   })
 
-  .state('menu.addMiscellaneousCost', {
-    url: '/add-edit-misc-cost',
+  .state('menu.addEditMiscellaneousCost', {
+    url: '/add-edit-misc-cost/:mode?license_plate_no&misc_cost_id&type&value',
     views: {
       'menuContent': {
-        templateUrl: 'templates/addMiscellaneousCost.html',
-        controller: 'addMiscellaneousCostCtrl'
+        templateUrl: 'templates/addEditMiscellaneousCost.html',
+        controller: 'addEditMiscellaneousCostCtrl'
       },
       'fabLeftContent': {
         template: ''
@@ -443,17 +452,64 @@ angular.module('app.routes', [])
   })
 
   .state('menu.miscellaneousCost', {
-    url: '/misc-cost',
+    url: '/misc-cost/:mode?license_plate_no&misc_cost_id',
     views: {
       'menuContent': {
         templateUrl: 'templates/miscellaneousCost.html',
         controller: 'miscellaneousCostCtrl'
       },
       'fabLeftContent': {
-        template: ''
+        template: '<button id="fab-misc-cost-delete" class="button button-fab button-fab-bottom-left button-assertive-900 spin" ng-hide="created" ng-click="deleteMiscCost()"><i class="icon ion-android-cancel"></i></button>',
+        controller: function($stateParams, $scope, $rootScope, sharedData, $http, $state, $cordovaPreferences, $cordovaToast, $ionicHistory, $timeout) {
+          // Initializing variables
+          $scope.license_plate_no = $stateParams.license_plate_no;
+          $scope.misc_cost_id = $stateParams.misc_cost_id;
+          $scope.created = ($stateParams.mode == "CREATED");
+
+          $timeout(function () {
+            document.getElementById('fab-misc-cost-delete').classList.toggle('on');
+          }, 200);
+
+          $scope.deleteMiscCost = function() {
+            $scope.showLoadingOverlay('Removing Miscellaneous Cost');
+            $http.delete($rootScope.MAIN_SERVER_URL + '/vehicle/' + $scope.license_plate_no + '/misc-cost/' + $scope.misc_cost_id + '/')
+              .then(function (response) {
+                if (response.data.status == 'SUCCESS') {
+                  $cordovaToast.showShortBottom('Miscellaneous cost removal successful');
+                  $ionicHistory.backView().go();
+                } else if (response.data.status == 'USER_NOT_LOGGED_IN') {
+                  $ionicHistory.nextViewOptions({
+                    disableBack: true
+                  });
+                  $cordovaToast.showShortBottom('You have to login first');
+                  $state.go('menu.home', {}, {location: "replace", reload: true});
+                } else {
+                  $cordovaToast.showShortBottom('Unknown error');
+                }
+                $scope.hideLoadingOverlay();
+              }, function (response) {
+                $cordovaToast.showShortBottom('Connection error');
+                $scope.hideLoadingOverlay();
+              });
+          }
+        }
       },
       'fabRightContent': {
-        template: ''
+        template: '<button id="fab-misc-cost-edit" class="button button-fab button-fab-bottom-right button-positive-900 spin" ng-hide="created" ng-click="goToUpdateView();"><i class="icon ion-edit"></i></button>',
+        controller: function ($stateParams, $timeout, sharedData, $scope, $state) {
+          // Initializing variables
+          $scope.created = ($stateParams.mode == 'CREATED');
+
+          $timeout(function () {
+            document.getElementById('fab-misc-cost-edit').classList.toggle('on');
+          }, 500);
+
+          $scope.goToUpdateView = function () {
+            var miscCostSharedData = sharedData.getData();
+            var miscCost = miscCostSharedData.fuel_fill_up;
+            $state.go('menu.addEditMiscellaneousCost', { mode : "EDIT", license_plate_no : miscCost.license_plate_no, misc_cost_id : miscCost.id, type : miscCost.type, value : miscCost.value });
+          };
+        }
       }
     }
   })

@@ -1,24 +1,31 @@
-<ion-view title="{{ (mode == 'ADD' ? 'Add' : 'Update') }} Check In" class="page">
-  <link href="css/map.css" rel="stylesheet">
-  <ion-content overflow-scroll="true" padding="true" class="has-header">
+<ion-view title="{{ (mode == 'ADD' ? 'Add' : 'Update') }} Check In" align-title="left" class="page">
+  <ion-content overflow-scroll="true" padding="true">
     <div class="list card" ng-hide="loading">
-      <div class="item item-divider">Map</div>
-      <div class="item item-body" ng-show="location_detected">
-        <div id="map" data-tap-disabled="true"></div>
-        <span ng-hide="location_detected || location_error">
+      <div class="item item-divider">Location</div>
+      <div class="item item-body">
+        <div id="add-edit-check-in-map" class="map" data-tap-disabled="true"></div>
+        <span ng-hide="location_detected || location_error || mode == 'EDIT'">
           <a class="item">
             <h3>Searching for your location</h3>
           </a>
         </span>
-        <span ng-show="location_error && !location_detected">
+        <span ng-show="mode == 'ADD' && (location_error && !location_detected)">
           <a class="item">
             <h3>Cannot detect your location</h3>
           </a>
         </span>
       </div>
 
+      <span ng-show="mode == 'EDIT'">
+        <div class="item item-divider">Vehicle</div>
+        <div class="item item-body">
+          <a class="item">{{ selected_vehicle.license_plate_no }}</a>
+        </div>
+      </span>
+
+      <div class="item item-divider">Edit</div>
       <div class="item item-body">
-        <label class="item item-select" name="vehicle">
+        <label class="item item-select" ng-show="mode == 'ADD'">
           <span class="input-label">Vehicle</span>
           <select ng-model="selected_vehicle.license_plate_no">
             <option ng-repeat="vehicle in vehicles" value="{{ vehicle.license_plate_no }}">{{ vehicle.name }}</option>
@@ -32,6 +39,6 @@
       </div>
     </div>
 
-    <button class="button button-full button-bar-positive ink" ng-hide="loading" ng-click="addUpdateCheckIn()" ng-hide="!location_detected || location_error"><i ng-class="['icon', {'ion-android-add-circle': mode == 'ADD', 'ion-checkmark': mode == 'EDIT'}]"></i> {{ (mode == 'ADD' ? 'Add' : 'Update') }}</button>
+    <button class="button button-full button-bar-positive ink" ng-hide="(mode == 'ADD' && (!location_detected || location_error)) || loading" ng-click="addUpdateCheckIn()"><i ng-class="['icon', {'ion-android-add-circle': mode == 'ADD', 'ion-checkmark': mode == 'EDIT'}]"></i> {{ (mode == 'ADD' ? 'Add' : 'Update') }}</button>
   </ion-content>
 </ion-view>

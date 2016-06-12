@@ -33,7 +33,7 @@ angular.module('app.controllers')
           var checkInSharedData = sharedData.getData();
           checkInSharedData.check_in = $scope.check_in;
 
-          var mapCanvas = document.getElementById("map");
+          var mapCanvas = document.getElementById("check-in-map");
           var mapOptions = {
             center: new google.maps.LatLng($scope.check_in.latitude, $scope.check_in.longitude),
             zoom: 12,

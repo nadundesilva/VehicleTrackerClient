@@ -13,16 +13,12 @@
       </div>
 
       <span ng-show="selected_vehicle.license_plate_no != null">
-        <label class="item item-input" name="search">
-          <i class="icon ion-search placeholder-icon"></i>
-          <input type="search" placeholder="Enter check in name" ng-model="search_key.name" ng-keyup="triggerAnimation();">
-        </label>
         <span ng-hide="check_ins.length != 0 || loading">
           <a class="item">
             <h3>There are no check ins assigned</h3>
           </a>
         </span>
-        <span ng-repeat="check_in in check_ins | filter: search_key" ng-hide="loading">
+        <span ng-repeat="check_in in check_ins" ng-hide="loading">
           <a ui-sref="menu.checkIn({ license_plate_no : selected_vehicle.license_plate_no, check_in_id : check_in.id })" class="item item-avatar item-icon-right">
             <img src="img/check-in-icon.png">
             <h2>{{ check_in.timestamp | date }}</h2>

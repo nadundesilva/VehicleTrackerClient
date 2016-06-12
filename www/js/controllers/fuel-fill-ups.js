@@ -3,7 +3,6 @@ angular.module('app.controllers')
 .controller('fuelFillUpsCtrl', function($scope, $rootScope, $stateParams, $http, $state, $ionicHistory, $cordovaToast, $timeout, ionicMaterialMotion, ionicMaterialInk) {
   $scope.$on('$ionicView.beforeEnter', function() {
     // Initializing variables
-    $scope.search_key = {};
     $scope.selected_vehicle = {};
     $scope.selected_vehicle.license_plate_no = null;
 

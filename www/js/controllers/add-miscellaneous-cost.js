@@ -1,6 +1,6 @@
 angular.module('app.controllers')
 
-.controller('addMiscellaneousCostCtrl', function($scope, ionicMaterialInk, ionicMaterialMotion) {
+.controller('addEditMiscellaneousCostCtrl', function($scope, ionicMaterialInk, ionicMaterialMotion) {
   // Initialization
   $scope.$on('$ionicView.enter', function() {
     // Updating the view
