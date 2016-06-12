@@ -33,13 +33,14 @@ angular.module('app.controllers')
           var checkInSharedData = sharedData.getData();
           checkInSharedData.check_in = $scope.check_in;
 
-          var mapCanvas = document.getElementById("check-in-map");
-          var mapOptions = {
+          $scope.mapCanvas = document.getElementById("check-in-map");
+          $scope.mapCanvas.innerHTML = "";
+          $scope.mapOptions = {
             center: new google.maps.LatLng($scope.check_in.latitude, $scope.check_in.longitude),
             zoom: 12,
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
-          $scope.map = new google.maps.Map(mapCanvas, mapOptions);
+          $scope.map = new google.maps.Map($scope.mapCanvas, $scope.mapOptions);
           var marker = new google.maps.Marker({
             position: new google.maps.LatLng($scope.check_in.latitude, $scope.check_in.longitude),
             map: $scope.map,

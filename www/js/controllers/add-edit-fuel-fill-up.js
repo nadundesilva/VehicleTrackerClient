@@ -18,12 +18,28 @@ angular.module('app.controllers')
     ionicMaterialMotion.ripple();
 
     $scope.mapCanvas = document.getElementById("add-edit-fuel-fill-up-map");
+    $scope.mapCanvas.innerHTML = "";
     if($stateParams.mode == 'EDIT') {
       $scope.fuel_fill_up_id = $stateParams.fuel_fill_up_id;
       $scope.selected_vehicle.license_plate_no = $stateParams.license_plate_no;
       $scope.fuel_fill_up.odo_meter_reading = parseFloat($stateParams.odo_meter_reading);
       $scope.fuel_fill_up.litres = parseFloat($stateParams.litres);
       $scope.fuel_fill_up.price = parseFloat($stateParams.price);
+      $scope.fuel_fill_up.station_latitude = $stateParams.station_latitude;
+      $scope.fuel_fill_up.station_longitude = $stateParams.station_longitude;
+
+      $scope.mapOptions = {
+        center: new google.maps.LatLng($scope.fuel_fill_up.station_latitude, $scope.fuel_fill_up.station_longitude),
+        zoom: 12,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      $scope.map = new google.maps.Map($scope.mapCanvas, $scope.mapOptions);
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng($scope.fuel_fill_up.station_latitude, $scope.fuel_fill_up.station_longitude),
+        map: $scope.map,
+        animation: google.maps.Animation.DROP,
+        icon: 'https://maps.google.com/mapfiles/kml/paddle/red-circle.png'
+      });
     } else {
       $scope.selected_vehicle.license_plate_no = null;
       $scope.fuel_fill_up.odo_meter_reading = null;

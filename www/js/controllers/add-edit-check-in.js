@@ -18,10 +18,26 @@ angular.module('app.controllers')
     ionicMaterialMotion.ripple();
 
     $scope.mapCanvas = document.getElementById("add-edit-check-in-map");
+    $scope.mapCanvas.innerHTML = "";
     if($stateParams.mode == 'EDIT') {
       $scope.check_in_id = $stateParams.check_in_id;
       $scope.selected_vehicle.license_plate_no = $stateParams.license_plate_no;
       $scope.check_in.description = $stateParams.description;
+      $scope.check_in.latitude = $stateParams.latitude;
+      $scope.check_in.longitude = $stateParams.longitude;
+
+      $scope.mapOptions = {
+        center: new google.maps.LatLng($scope.check_in.latitude, $scope.check_in.longitude),
+        zoom: 12,
+        mapTypeId: google.maps.MapTypeId.ROADMAP
+      };
+      $scope.map = new google.maps.Map($scope.mapCanvas, $scope.mapOptions);
+      var marker = new google.maps.Marker({
+        position: new google.maps.LatLng($scope.check_in.latitude, $scope.check_in.longitude),
+        map: $scope.map,
+        animation: google.maps.Animation.DROP,
+        icon: 'https://maps.google.com/mapfiles/kml/paddle/red-circle.png'
+      });
     } else {
       $scope.selected_vehicle.license_plate_no = null;
       $scope.check_in.description = null;

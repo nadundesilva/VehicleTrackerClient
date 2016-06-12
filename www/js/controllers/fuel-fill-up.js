@@ -33,13 +33,14 @@ angular.module('app.controllers')
           var fuelFillUpSharedData = sharedData.getData();
           fuelFillUpSharedData.fuel_fill_up = $scope.fuel_fill_up;
 
-          var mapCanvas = document.getElementById("fuel-fill-up-map");
-          var mapOptions = {
+          $scope.mapCanvas = document.getElementById("fuel-fill-up-map");
+          $scope.mapCanvas.innerHTML = "";
+          $scope.mapOptions = {
             center: new google.maps.LatLng($scope.fuel_fill_up.latitude, $scope.fuel_fill_up.longitude),
             zoom: 12,
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
-          $scope.map = new google.maps.Map(mapCanvas, mapOptions);
+          $scope.map = new google.maps.Map($scope.mapCanvas, $scope.mapOptions);
           var marker = new google.maps.Marker({
             position: new google.maps.LatLng($scope.fuel_fill_up.latitude, $scope.fuel_fill_up.longitude),
             map: $scope.map,
