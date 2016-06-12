@@ -421,7 +421,7 @@ angular.module('app.routes', [])
         template: ''
       },
       'fabRightContent': {
-        template: '<button ui-sref=\'menu.addMiscellaneousCost({ mode : "ADD", license_plate_no : license_plate_no })\' id="fab-misc-costs-add" class="button button-fab button-fab-bottom-right button-balanced-900 spin"><i class="icon ion-plus"></i></button>',
+        template: '<button ui-sref=\'menu.addEditMiscellaneousCost({ mode : "ADD", license_plate_no : license_plate_no })\' id="fab-misc-costs-add" class="button button-fab button-fab-bottom-right button-balanced-900 spin"><i class="icon ion-plus"></i></button>',
         controller: function($scope, $timeout, $stateParams) {
           // Initializing variables
           $scope.license_plate_no = $stateParams.license_plate_no;
@@ -506,7 +506,7 @@ angular.module('app.routes', [])
 
           $scope.goToUpdateView = function () {
             var miscCostSharedData = sharedData.getData();
-            var miscCost = miscCostSharedData.fuel_fill_up;
+            var miscCost = miscCostSharedData.misc_cost;
             $state.go('menu.addEditMiscellaneousCost', { mode : "EDIT", license_plate_no : miscCost.license_plate_no, misc_cost_id : miscCost.id, type : miscCost.type, value : miscCost.value });
           };
         }

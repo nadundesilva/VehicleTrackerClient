@@ -30,6 +30,29 @@ angular.module('app.controllers')
       $scope.fuel_fill_up.litres = null;
       $scope.fuel_fill_up.price = null;
 
+      // Loading license plate nos
+      $scope.showLoadingOverlay('Retrieving Vehicles');
+      $http.get($rootScope.MAIN_SERVER_URL + '/vehicle/name/')
+        .then(function (response) {
+          if (response.data.status == 'SUCCESS') {
+            $scope.vehicles = response.data.owned_vehicles;
+            $scope.vehicles = $scope.vehicles.concat(response.data.managed_vehicles);
+          } else if (response.data.status == 'USER_NOT_LOGGED_IN') {
+            $ionicHistory.nextViewOptions({
+              disableBack: true
+            });
+            $cordovaToast.showShortBottom('You have to login first');
+            $state.go('menu.home', {}, {location: "replace", reload: true});
+          } else {
+            $cordovaToast.showShortBottom('Unknown error');
+          }
+          $scope.hideLoadingOverlay();
+        }, function (response) {
+          $cordovaToast.showShortBottom('Connection error');
+          $scope.hideLoadingOverlay();
+        });
+
+      // Locating the user's location
       $cordovaGeolocation.getCurrentPosition({timeout: 10000, enableHighAccuracy: true}).then(function(position){
         $scope.mapOptions = {
           center: new google.maps.LatLng(position.coords.latitude, position.coords.longitude),
@@ -75,7 +98,6 @@ angular.module('app.controllers')
       }).then(function (response) {
         if (response.data.status == 'SUCCESS') {
           $cordovaToast.showShortBottom('Fuel fill up ' + ($stateParams.mode == 'ADD' ? 'creation' : 'updating') + ' successful');
-          console.log($ionicHistory.backView().stateParams);
           if($stateParams.mode == 'EDIT') {
             $ionicHistory.backView().stateParams = { license_plate_no: $scope.selected_vehicle.license_plate_no, fuel_fill_up_id: $scope.fuel_fill_up_id };
             $ionicHistory.backView().stateId = $ionicHistory.backView().stateName + "_license_plate_no=" + $scope.selected_vehicle.license_plate_no + "_fuel_fill_up_id_=" + $scope.fuel_fill_up_id;

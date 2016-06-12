@@ -19,7 +19,7 @@
           </a>
         </span>
         <span ng-repeat="misc_cost in misc_costs" ng-hide="loading">
-          <a ui-sref="menu.miscellaneousCost({ license_plate_no : selected_vehicle.license_plate_no, fuel_fill_up_id : fuel_fill_up.id })" class="item item-avatar item-icon-right">
+          <a ui-sref="menu.miscellaneousCost({ license_plate_no : selected_vehicle.license_plate_no, misc_cost_id : misc_cost.id })" class="item item-avatar item-icon-right">
             <img src="img/fuel-fill-up-icon.png">
             <h2>{{ misc_cost.timestamp | date }}</h2>
             <p>{{ misc_cost.type }}<br>

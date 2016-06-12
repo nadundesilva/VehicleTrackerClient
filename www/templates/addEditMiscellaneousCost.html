@@ -1,31 +1,33 @@
-<ion-view title="Add Miscellaneous Cost" class="page">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <div class="list card">
-            <div class="item item-body">
-                <form class="list">
-                    <label class="item item-select" name="vehicle">
-                        <span class="input-label">Vehicle</span>
-                        <select>
-                            <option>N/A</option>
-                        </select>
-                    </label>
-                    <label class="item item-select" name="cost-type">
-                        <span class="input-label">Cost Type</span>
-                        <select>
-                            <option>Service</option>
-                            <option>Maintenance</option>
-                            <option>Parking</option>
-                            <option>Insurance</option>
-                            <option>Other</option>
-                        </select>
-                    </label>
-                    <label class="item item-input" name="value">
-                        <span class="input-label">Value</span>
-                        <input type="text" placeholder="Enter the price paid">
-                    </label>
-                </form>
-            </div>
+<ion-view title="{{ (mode == 'ADD' ? 'Add' : 'Update') }} Miscellaneous Cost" align-title="left" class="page">
+    <ion-content overflow-scroll="true" padding="true">
+      <div class="list card" ng-hide="loading">
+        <span ng-show="mode == 'EDIT'">
+          <div class="item item-divider">Vehicle</div>
+          <div class="item item-body">
+            <a class="item">{{ selected_vehicle.license_plate_no }}</a>
+          </div>
+        </span>
+
+        <div class="item item-body">
+          <label class="item item-select" ng-show="mode == 'ADD'">
+            <span class="input-label">Vehicle</span>
+            <select ng-model="selected_vehicle.license_plate_no">
+              <option ng-repeat="vehicle in vehicles" value="{{ vehicle.license_plate_no }}">{{ vehicle.name }}</option>
+            </select>
+          </label>
+
+          <label class="item item-input">
+            <span class="input-label">Type</span>
+            <input type="text" placeholder="Enter cost type" ng-model="misc_cost.type">
+          </label>
+
+          <label class="item item-input">
+            <span class="input-label">Price</span>
+            <input type="number" placeholder="Enter price" ng-model="misc_cost.value">
+          </label>
         </div>
-        <button id="addMiscellaneousCost-button10" class="button button-positive  button-block icon ion-android-add-circle">Add</button>
+      </div>
+
+      <button class="button button-full button-bar-positive ink" ng-hide="loading" ng-click="addUpdateMiscCost()"><i ng-class="['icon', {'ion-android-add-circle': mode == 'ADD', 'ion-checkmark': mode == 'EDIT'}]"></i> {{ (mode == 'ADD' ? 'Add' : 'Update') }}</button>
     </ion-content>
 </ion-view>

@@ -53,7 +53,6 @@ angular.module('app.controllers')
           $cordovaToast.showShortBottom('You have to login first');
           $state.go('menu.home', {}, {location: "replace", reload: true});
         } else {
-          console.log(response.data.status);
           $cordovaToast.showShortBottom('Unknown error');
         }
         $scope.hideLoadingOverlay();
