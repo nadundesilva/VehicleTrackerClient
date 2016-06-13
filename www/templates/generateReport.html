@@ -1,31 +1,42 @@
-<ion-view title="Generate Report" class="page">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <div class="list card">
-            <div class="item item-body">
-                <form class="list">
-                    <label class="item item-select" name="type">
-                        <span class="input-label">Type</span>
-                        <select>
-                            <option>Fuel Consumption</option>
-                            <option>Costs</option>
-                            <option>Fuel Price</option>
-                        </select>
-                    </label>
-                </form>
-            </div>
+<ion-view title="Generate Report" align-title="left" class="page">
+  <ion-content overflow-scroll="true" padding="true">
+    <div class="list padding card" ng-hide="loading">
+      <div class="item item-divider">Category</div>
+      <div class="item item-body">
+        <label class="item item-select">
+          <span class="input-label">Main</span>
+          <select ng-model="type.main">
+            <option value="FUEL">Fuel</option>
+          </select>
+        </label>
+        <label class="item item-select">
+          <span class="input-label">Sub</span>
+          <select ng-model="type.sub">
+            <option value="CONSUMPTION">Consumption</option>
+          </select>
+        </label>
+      </div>
+
+      <span ng-show="type.main == 'FUEL' && type.sub == 'CONSUMPTION'">
+        <div class="item item-divider">Time Period</div>
+        <div class="item item-body">
+          <label class="item item-input">
+            <span class="input-label">Start Date</span>
+            <input type="date" ng-model="date.start_date">
+          </label>
+          <label class="item item-input">
+            <span class="input-label">End Date</span>
+            <input type="date" ng-model="date.end_date">
+          </label>
         </div>
-        <div class="list card">
-            <div class="item item-body">
-                <form class="list">
-                    <ion-checkbox name="fuel-fill-ups">Fuel fill ups</ion-checkbox>
-                    <ion-checkbox name="service">Service</ion-checkbox>
-                    <ion-checkbox name="maintenance">Maintenance</ion-checkbox>
-                    <ion-checkbox name="parking">Parking</ion-checkbox>
-                    <ion-checkbox name="insurance">Insurance</ion-checkbox>
-                    <ion-checkbox name="other">Other</ion-checkbox>
-                </form>
-            </div>
+
+        <div class="item item-divider">Vehicle</div>
+        <div class="item item-body">
+          <ion-checkbox ng-repeat="vehicle in vehicles" ng-model="vehicle.checked">{{ vehicle.name }}</ion-checkbox>
         </div>
-        <a ui-sref="report" id="generateReport-button14" class="button button-positive  button-block icon ion-compose">Generate</a>
-    </ion-content>
+      </span>
+    </div>
+
+    <button class="button button-full button-bar-positive ink" ng-hide="loading" ng-click="generateReport();"><i class="ion-compose"></i> Generate</button>
+  </ion-content>
 </ion-view>

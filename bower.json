@@ -13,6 +13,7 @@
   "dependencies": {
     "ion-md-input": "^1.0.4",
     "ionic-material": "^0.4.2",
-    "ngCordova": "^0.1.26-alpha"
+    "ngCordova": "^0.1.26-alpha",
+    "angular-chart.js": "^0.10.2"
   }
 }

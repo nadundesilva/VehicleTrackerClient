@@ -1,11 +1,7 @@
-<ion-view title="Report" class="page">
-    <ion-content overflow-scroll="true" padding="true" class="has-header">
-        <div class="list card">
-            <div class="item item-body">
-                <ion-list>
-                    <ion-item class="item-divider">Report Type</ion-item>
-                </ion-list>
-            </div>
-        </div>
-    </ion-content>
+<ion-view title="Fuel Consumption Report" align-title="left" cache-view="false" class="page">
+  <ion-content overflow-scroll="true" padding="true">
+    <div class="list padding card" ng-show="type = 'FUEL_CONSUMPTION' && !loading">
+      <canvas class="chart chart-bar" chart-data="report.data" chart-labels="report.labels" chart-legend="true" chart-series="report.series"></canvas>
+    </div>
+  </ion-content>
 </ion-view>

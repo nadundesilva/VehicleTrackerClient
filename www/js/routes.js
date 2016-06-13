@@ -515,7 +515,7 @@ angular.module('app.routes', [])
   })
 
   .state('menu.generateReport', {
-    url: '/generate-report',
+    url: '/generate-report/',
     views: {
       'menuContent': {
         templateUrl: 'templates/generateReport.html',
@@ -531,11 +531,11 @@ angular.module('app.routes', [])
   })
 
   .state('menu.report', {
-    url: '/report',
+    url: '/report/:type',
     views: {
       'menuContent': {
-        templateUrl: 'templates/generateReport.html',
-        controller: 'generateReportCtrl'
+        templateUrl: 'templates/report.html',
+        controller: 'reportCtrl'
       },
       'fabLeftContent': {
         template: ''
@@ -547,7 +547,7 @@ angular.module('app.routes', [])
   })
 
   .state('menu.settings', {
-    url: '/settings',
+    url: '/settings/',
     views: {
       'menuContent': {
         templateUrl: 'templates/settings.html',

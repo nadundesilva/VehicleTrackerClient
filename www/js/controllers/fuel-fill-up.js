@@ -36,13 +36,13 @@ angular.module('app.controllers')
           $scope.mapCanvas = document.getElementById("fuel-fill-up-map");
           $scope.mapCanvas.innerHTML = "";
           $scope.mapOptions = {
-            center: new google.maps.LatLng($scope.fuel_fill_up.latitude, $scope.fuel_fill_up.longitude),
+            center: new google.maps.LatLng($scope.fuel_fill_up.station_latitude, $scope.fuel_fill_up.station_longitude),
             zoom: 12,
             mapTypeId: google.maps.MapTypeId.ROADMAP
           };
           $scope.map = new google.maps.Map($scope.mapCanvas, $scope.mapOptions);
           var marker = new google.maps.Marker({
-            position: new google.maps.LatLng($scope.fuel_fill_up.latitude, $scope.fuel_fill_up.longitude),
+            position: new google.maps.LatLng($scope.fuel_fill_up.station_latitude, $scope.fuel_fill_up.station_longitude),
             map: $scope.map,
             animation: google.maps.Animation.DROP,
             icon: 'https://maps.google.com/mapfiles/kml/paddle/red-circle.png'
