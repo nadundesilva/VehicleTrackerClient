@@ -1,7 +1,8 @@
-<ion-view title="Fuel Consumption Report" align-title="left" cache-view="false" class="page">
-  <ion-content overflow-scroll="true" padding="true">
-    <div class="list padding card" ng-show="type = 'FUEL_CONSUMPTION' && !loading">
-      <canvas class="chart chart-bar" chart-data="report.data" chart-labels="report.labels" chart-legend="true" chart-series="report.series"></canvas>
+<ion-view title="Report" align-title="left" cache-view="false" class="page">
+  <ion-content overflow-scroll="true">
+    <div class="list padding card" ng-hide="loading">
+      <canvas class="chart chart-line" chart-data="report.data" chart-labels="report.labels" chart-legend="true" chart-series="report.series" ng-show="type == 'FUEL_CONSUMPTION' || type == 'AGGREGATE_MISC_COST' || type == 'DRIVER_FUEL_CONSUMPTION'"></canvas>
+      <canvas class="chart chart-pie" chart-data="report.data" chart-labels="report.labels" chart-legend="true" ng-show="type == 'VEHICLE_MISC_COST'"></canvas>
     </div>
   </ion-content>
 </ion-view>

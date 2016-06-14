@@ -6,19 +6,24 @@
         <label class="item item-select">
           <span class="input-label">Main</span>
           <select ng-model="type.main">
-            <option value="FUEL">Fuel</option>
+            <option value="COST">Cost</option>
+            <option value="VEHICLE">Vehicle</option>
+            <option value="DRIVER">Driver</option>
           </select>
         </label>
-        <label class="item item-select">
+
+        <label class="item item-select" ng-show="type.main != null">
           <span class="input-label">Sub</span>
           <select ng-model="type.sub">
-            <option value="CONSUMPTION">Consumption</option>
+            <option ng-show="type.main == 'COST'" value="FUEL_CONSUMPTION">Fuel Cost</option>
+            <option ng-show="type.main == 'DRIVER'" value="FUEL_CONSUMPTION">Fuel Consumption</option>
+            <option ng-show="type.main == 'COST' || type.main == 'VEHICLE'" value="MISC_COST">Miscellaneous Cost</option>
           </select>
         </label>
       </div>
 
-      <span ng-show="type.main == 'FUEL' && type.sub == 'CONSUMPTION'">
-        <div class="item item-divider">Time Period</div>
+      <span ng-show="(type.main == 'COST' && (type.sub == 'FUEL_CONSUMPTION' || type.sub == 'MISC_COST')) || (type.main == 'VEHICLE' && type.sub == 'MISC_COST') || (type.main == 'DRIVER' && type.sub == 'FUEL_CONSUMPTION')">
+        <div class="item item-divider">Select the Time Period</div>
         <div class="item item-body">
           <label class="item item-input">
             <span class="input-label">Start Date</span>
@@ -30,10 +35,21 @@
           </label>
         </div>
 
-        <div class="item item-divider">Vehicle</div>
-        <div class="item item-body">
+        <div class="item item-divider"> Select the Vehicle</div>
+        <div class="item item-body" ng-show="type.main == 'COST' && (type.sub == 'FUEL_CONSUMPTION' || type.sub == 'MISC_COST')">
           <ion-checkbox ng-repeat="vehicle in vehicles" ng-model="vehicle.checked">{{ vehicle.name }}</ion-checkbox>
         </div>
+        <div class="item item-body" ng-show="type.main == 'VEHICLE' && type.sub == 'MISC_COST' || type.main == 'DRIVER' && type.sub == 'FUEL_CONSUMPTION'">
+          <ion-list radio-group>
+            <ion-radio ng-repeat="vehicle in vehicles" ng-model="specific_vehicle.license_plate_no" ng-value="'{{ vehicle.license_plate_no }}'">{{ vehicle.name }}</ion-radio>
+          </ion-list>
+        </div>
+        <span  ng-show="specific_vehicle.license_plate_no != null && type.main == 'DRIVER' && type.sub == 'FUEL_CONSUMPTION'">
+          <div class="item item-divider"> Select driver</div>
+          <div class="item item-body">
+            <ion-checkbox ng-repeat="driver in drivers" ng-model="driver.checked">{{ driver.name }}</ion-checkbox>
+          </div>
+        </span>
       </span>
     </div>
 

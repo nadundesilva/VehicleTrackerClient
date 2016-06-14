@@ -41,6 +41,34 @@ angular.module('app.controllers')
       });
   });
 
+  $scope.removeDriver = function(username) {
+    $scope.showLoadingOverlay('Removing Driver');
+    $http.delete($rootScope.MAIN_SERVER_URL + '/vehicle/' + $stateParams.license_plate_no + '/driver/' + username + '/')
+      .then(function (response) {
+        if (response.data.status == 'SUCCESS') {
+          $cordovaToast.showShortBottom('Driver removal successful');
+          for (var i = 0 ; i < $scope.drivers ; i++) {
+            if ($scope.drivers[i].username == username) {
+              $scope.drivers.splice(i, 1);
+              break;
+            }
+          }
+        } else if (response.data.status == 'USER_NOT_LOGGED_IN') {
+          $ionicHistory.nextViewOptions({
+            disableBack: true
+          });
+          $cordovaToast.showShortBottom('You have to login first');
+          $state.go('menu.home', {}, {location: "replace", reload: true});
+        } else {
+          $cordovaToast.showShortBottom('Unknown error');
+        }
+        $scope.hideLoadingOverlay();
+      }, function (response) {
+        $cordovaToast.showShortBottom('Connection error');
+        $scope.hideLoadingOverlay();
+      });
+  };
+
   $scope.triggerAnimation = function () {
     // Set Motion
     $timeout(function () {

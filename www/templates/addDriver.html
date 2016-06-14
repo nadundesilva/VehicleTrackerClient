@@ -10,7 +10,7 @@
           <h3>Searching for users<ion-spinner icon="android"></ion-spinner></h3>
         </a>
       </span>
-      <span ng-hide="users.length != 0 || loading">
+      <span ng-hide="users.length != 0 || loading || searching">
         <a class="item">
           <h3>User not found</h3>
         </a>
@@ -20,6 +20,7 @@
           <img src="img/user-icon.png">
           <h2>{{ user.first_name + (user.last_name != null ? ' ' + user.last_name : '') }}</h2>
           <p>Username : {{ user.username }}</p>
+          <i class="icon ion-plus" ng-click="addDriver(user.username)"></i>
         </a>
       </span>
     </div>

@@ -15,6 +15,7 @@
           <img src="img/user-icon.png">
           <h2>{{ driver.first_name + (driver.last_name != null ? ' ' + driver.last_name : '') }}</h2>
           <p>Username : {{ driver.username }}</p>
+          <i class="icon ion-android-cancel" ng-click="removeDriver(driver.username)"></i>
         </a>
       </span>
     </div>

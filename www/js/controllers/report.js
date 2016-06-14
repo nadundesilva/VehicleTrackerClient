@@ -3,7 +3,7 @@ angular.module('app.controllers')
 .controller('reportCtrl', function($scope, $rootScope, $stateParams, $http, $state, $ionicHistory, $cordovaToast, $timeout, ionicMaterialMotion, ionicMaterialInk, sharedData) {
   $scope.$on('$ionicView.beforeEnter', function() {
     $scope.type = $stateParams.type;
-    
+
     // Updating the view
     $scope.showHeader();
     $scope.isExpanded = false;
@@ -12,12 +12,25 @@ angular.module('app.controllers')
     $scope.setHeaderFab(false);
     ionicMaterialInk.displayEffect();
     ionicMaterialMotion.ripple();
-    
+
     var url = '';
     var data = {};
     if ($scope.type == 'FUEL_CONSUMPTION') {
       url = '/report/fuel/consumption/';
-      data = { criteria : sharedData.getData().fuel_consumption };
+      data = { criteria : sharedData.getData().criteria };
+      $scope.title = 'Fuel Consumption';
+    } else if ($scope.type == 'AGGREGATE_MISC_COST') {
+      url = '/report/misc-cost/aggregate/';
+      data = { criteria : sharedData.getData().criteria };
+      $scope.title = 'Aggregate Miscellaneous Costs';
+    } else if ($scope.type == 'VEHICLE_MISC_COST') {
+      url = '/report/vehicle/misc-cost/';
+      data = { criteria : sharedData.getData().criteria };
+      $scope.title = 'Miscellaneous Costs';
+    } else if ($scope.type == 'DRIVER_FUEL_CONSUMPTION') {
+      url = '/report/vehicle/driver/misc-cost/';
+      data = { criteria : sharedData.getData().criteria };
+      $scope.title = 'Driver Fuel Consumption';
     }
 
     // Loading license plate nos
@@ -26,6 +39,7 @@ angular.module('app.controllers')
       .then(function (response) {
         if (response.data.status == 'SUCCESS') {
           $scope.report = response.data.report;
+          console.log($scope.report);
         } else if (response.data.status == 'USER_NOT_LOGGED_IN') {
           $ionicHistory.nextViewOptions({
             disableBack: true
@@ -37,7 +51,6 @@ angular.module('app.controllers')
         }
         $scope.hideLoadingOverlay();
       }, function (response) {
-        console.log(response.data);
         $cordovaToast.showShortBottom('Connection error');
         $scope.hideLoadingOverlay();
       });
